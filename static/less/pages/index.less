@@ -1,0 +1,23 @@
+@page: 'index';
+@import '../config/fonts.less';
+@import '../config/config.less';
+@import './@{page}/@{page}.mobile.less';
+@import './@{page}/@{page}.tablet.less';
+@import './@{page}/@{page}.desktop.less';
+
+// LeftSide
+@import '../layout/leftSide.less';
+// RightSide
+@import '../layout/rightSide.less';
+
+.center-grid {
+    padding: 0.75rem 0.5rem 0.75rem 0.5rem;
+    @import '../layout/navBar.less';
+    @import '../layout/main.less';
+}
+
+// Index Page
+.index.body-wrapper {
+    // Navbar + Main
+
+}

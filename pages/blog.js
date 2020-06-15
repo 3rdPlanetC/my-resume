@@ -1,11 +1,8 @@
-// react
-import { useState } from 'react'
 // css, js config
-import "../static/less/pages/index.less"
+import "../static/less/pages/blog.less"
 // Library
 import Grid from '@material-ui/core/Grid'
 import Boxer from '../layout/Boxer'
-import Skeleton from '@material-ui/lab/Skeleton'
 // Components
 import HeaderSEO from '../components/etc/HeaderSEO'
 import NavBar from '../components/NavigatorBar'
@@ -14,48 +11,13 @@ import Main from '../components/Main'
 import RightSideBar from '../components/RightSideBar'
 import Text from "../layout/Text"
 
-const JobImage = props => {
-    const { imageStatus, handleImageLoaded, handleImageErrored } = props
-    return (
-        <>
-            <img src="https://source.unsplash.com/random" 
-                alt="test"
-                onLoad={handleImageLoaded}
-                onError={handleImageErrored}
-                style={!imageStatus ? (
-                    {
-                        display: 'none'
-                    }
-                ) : (
-                    {
-                        display: 'initial'
-                    }
-                )}
-            />
-            {!imageStatus && <Skeleton animation="wave" variant="rect" width="100%" height="100%"/>}
-        </>
-    )
-}
-
-const JobPost = props => {
-    const [imageStatus, setImageStatus] = useState(false)
-    const handleImageLoaded = () => {
-        setImageStatus(true)
-      }
-    
-    const handleImageErrored = () => {
-        console.log("error loading image")
-    }
+const BlogPost = props => {
     return (
         <Grid container direction="row">
-            {[1,2,3,4,5,6,7,8].map((item, index) =>
+            {[1,2,3,4,5,6,7].map((item, index) =>
                 <Grid item xl={3} lg={3} md={4} sm={6} className="box-wrapper" key={index}>
                     <Boxer className="box-image box-child">
-                        <JobImage 
-                            imageStatus={imageStatus}
-                            handleImageLoaded={handleImageLoaded}
-                            handleImageErrored={handleImageErrored}
-                        />
+                        <img src="https://source.unsplash.com/random" alt="test" />
                     </Boxer>
                     <Boxer className="box-title box-child">
                         <Text ele="h5" fontClass="kanit-medium" spanClass="box-title" gutterBottom id={`box-title-${index}`}>
@@ -78,11 +40,11 @@ const JobPost = props => {
     )
 }
 
-const Home = props => {
+const Blog = props => {
     return (
-        <Grid className={`${true ? "theme-dark" : "theme-light"} body-wrapper index`}>
-            <HeaderSEO title="E3T - Homepage">
-                <script async type="module" src="/static/js/style.js" id="leftside" page="index"/>
+        <Grid className={`${true ? "theme-dark" : "theme-light"} body-wrapper blog`}>
+            <HeaderSEO title="E3T - Blog">
+                <script async type="module" src="/static/js/style.js" id="leftside" page="blog"/>
             </HeaderSEO>
             <Grid container spacing={0}>
                 {/* Left Side Bar */}
@@ -93,7 +55,7 @@ const Home = props => {
                 <Grid item lg={8} md={7} className="center-grid">
                     <NavBar />
                     <Main>
-                        <JobPost />
+                        <BlogPost />
                     </Main>
                 </Grid>
                 {/* Right Side Bar */}
@@ -105,4 +67,4 @@ const Home = props => {
     )
 }
 
-export default Home
+export default Blog
