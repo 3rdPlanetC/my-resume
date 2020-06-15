@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "dependencies": {
     "@material-ui/core": "^4.10.1",
@@ -27,7 +27,8 @@
     "rimraf": "~3.0.2"
   },
   "main": "server/index.js",
-  "engines": {
-    "node": "10"
-  }
+  "engine": {
+    "node": "10",
+    "npm": "6.0.0"
+  },
 }
