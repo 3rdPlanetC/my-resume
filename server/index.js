@@ -1,81 +1,51 @@
 // Import Library
-// const admin = require("firebase-admin");
-// const functions = require("firebase-functions");
 const express = require('express')
 const next = require('next')
-const config = require('../next.config')
-// const cookieSession = require('cookie-session')
-// const passport = require('passport')
-// const keys = require('./config/keys')
-// const FacebookStrategy = require('passport-facebook').Strategy
-// const mongoose = require('mongoose')
+const cookieSession = require('cookie-session')
+const passport = require('passport')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
 // Middlewares
-// require('./models/User')
-// require('./services/passport')
-// require('dotenv').config()
-// mongoose.connect(keys.mongoURI)
-// mongoose.set('useFindAndModify', false);
+const keys = require('./config/keys')
 const port = process.env.port || 3000
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ 
-	dev,
-	// conf: config, 
-})
+const app = next({ dev,})
 const handle = app.getRequestHandler()
-
-// admin.initializeApp();
 
 // Express Middlewares
 app.prepare()
     .then(() => {
+        // MongoDB
+        mongoose
+            .connect(keys.mongoURI, { useNewUrlParser: true,})
+            .then(() => console.log('> Database Ready on Mlab'))
+            .catch(err => console.error(err))
+        mongoose.set('useFindAndModify', false)
+        mongoose.set('useCreateIndex', true)
+        require('./models/User')
         const server = express()
-        // Cookie Session
-        // server.use(cookieSession({
-        //     maxAge: 30*24*60*60,
-        //     keys: [keys.cookieKeys]
-        // }))
-        server.get('/', (req, res) => {
-            return app.render(req, res, '/')
-        })
-        server.get('/post/:slug', (req, res) => {
-            return app.render(req, res, '/post', { slug: req.params.slug })
-        })
-        server.get('/blog', (req, res) => {
-            return app.render(req, res, '/blog')
-        })
-        server.get('/login', (req, res) => {
-            return app.render(req, res, '/login')
-        })
+        // Body Parser 
+        server.use(bodyParser.json())
         // Passport Initialize
-        // server.use(passport.initialize())
-        // server.use(passport.session())
-        // Auth Routes
-        // require('./routes/authRoutes')(server)
+        server.use(passport.initialize())
+        server.use(passport.session())
+        require('./service/passport')
+        // Cookie Session
+        server.use(cookieSession({
+            maxAge: 30*24*60*60,
+            keys: [keys.cookieKeys]
+        }))
+        // Routes
+        require('./routes/pages')(server, app)
+        require('./routes/user')(server, app)
         // Fix
         server.get('*', (req, res) => {
             return handle(req, res)
         })
         server.listen(port, (err) => {
             if (err) throw err
-            console.log(`> Ready on http://localhost:${port}`)
+            console.log(`> Server Ready on http://localhost:${port}`)
         })
     }
 )
-
-// const server = functions.https.onRequest((req, res) => {
-//     // console.log("File: " + req.originalUrl)
-//     return app.prepare().then(() => {
-//         server.get('/', (req, res) => {
-//             return app.render(req, res, '/')
-//         })
-//         server.get('/blog', (req, res) => {
-//             return app.render(req, res, '/blog')
-//         })
-//         server.get('*', (req, res) => {
-//             return handle(req, res)
-//         })
-//     })
-// });
-
-// exports.nextjs = { server }

@@ -1,1 +1,0 @@
-{"ast":null,"code":"import React from \"react\";\nvar __jsx = React.createElement;\nimport Box from '@material-ui/core/Box';\n\nvar Boxer = function Boxer(props) {\n  return __jsx(Box, {\n    className: props.className,\n    id: props.id\n  }, props.children);\n};\n\nexport default Boxer;","map":null,"metadata":{},"sourceType":"module"}

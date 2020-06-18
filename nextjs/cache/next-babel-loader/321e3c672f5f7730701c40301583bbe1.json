@@ -1,1 +1,0 @@
-{"ast":null,"code":"import React from \"react\";\nvar __jsx = React.createElement;\nimport { useRouter } from 'next/router';\n\nconst Post = () => {\n  const router = useRouter();\n  const {\n    slug\n  } = router.query;\n  return __jsx(\"p\", null, \"My Blog Post: \", slug);\n};\n\nexport default Post;","map":null,"metadata":{},"sourceType":"module"}
