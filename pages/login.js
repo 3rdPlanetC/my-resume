@@ -1,6 +1,10 @@
+import { useState, useRef } from 'react'
+import axios from 'axios'
+import Router from 'next/router'
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
+// library
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -10,6 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import Validation from '../utils/validation'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -23,20 +28,74 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
+        width: '100%',
         marginTop: theme.spacing(1),
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    textField: {
+        '&.passed fieldset': {
+            borderColor: 'green',
+            borderWidth: "2px"
+        },
+        '&.passed > div:hover fieldset': {
+            borderColor: 'green'
+        }
+    }
 }))
 
-export default function Login() {
-    const classes = useStyles();
 
+export default function Login(props) {
+    const submitForm = useRef(null)
+    const [form, setForm] = useState(props.form)
+    const [resMessage, setResMessage] = useState(false)
+    const handleChange = e => {
+        const key = e.target.name
+        const value = e.target.value
+        setForm(
+            Validation({
+                ...form, 
+                [key]:value
+            }).usernameEmpty()
+            .passwordUppercase()
+            .value
+        )
+    }
+
+    const handleSubmit = async e => {
+        e.preventDefault()
+        try {
+            const { username, password } = form
+            const res = await axios.post('/api/login', {
+                username: username.value,
+                password: password.value,
+            })
+            const { status, message, user, token } = res.data
+            if (!status) {
+                setForm(props.form)
+                submitForm.current.reset()
+                setResMessage(message)
+            } else {
+                setResMessage(`${message} and redirect to Login page in 5 second.`)
+                setCookie({}, user._id, token, {
+                    maxAge: 30 * 24 * 60 * 60,
+                    path: '/',
+                })
+                setTimeout(() => {
+                    Router.replace('/')
+                }, 5000)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const classes = useStyles()
+    const { username, password } = form
+    const errorCheck = password.error || username.error
+    const blankCheck = !(username.value.length > 0 && password.value.length > 0)
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
@@ -44,34 +103,32 @@ export default function Login() {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form ref={submitForm} className={classes.form} noValidate onSubmit={handleSubmit}>
                     <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
+                        error={username.error || false} helperText={username.errorText || ""}
+                        variant="outlined" margin="normal"
+                        required fullWidth
+                        id="username" label="Username"
+                        name="username" autoComplete="username"
+                        autoFocus onChange={handleChange}
+                        className={`${classes.textField} ${username.error || !username.value.length > 0 ? '' : 'passed'}`}
                     />
                     <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
+                        error={password.error} helperText={password.errorText || ""}
+                        variant="outlined" min="6"
+                        margin="normal" required
+                        fullWidth name="password"
+                        label="Password" type="password"
+                        id="password" autoComplete="current-password"
+                        onChange={handleChange}
+                        className={`${classes.textField} ${password.error || !password.value.length > 0 ? '' : 'passed'}`}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
                     <Button
+                        disabled={errorCheck || blankCheck}
                         type="submit"
                         fullWidth
                         variant="contained"
@@ -80,6 +137,7 @@ export default function Login() {
                     >
                         Sign In
                     </Button>
+                    {resMessage ? resMessage : ''}
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
@@ -96,4 +154,23 @@ export default function Login() {
             </div>
         </Container>
     )
+}
+
+export async function getStaticProps(context) {
+    return {
+        props: {
+            form: {
+                username: {
+                    error: false,
+                    errorText: "",
+                    value: ""
+                },
+                password: {
+                    error: false,
+                    errorText: "",
+                    value: ""
+                },
+            }
+        },
+    }
 }

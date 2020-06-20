@@ -1,18 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 // library
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
-import FormControl from '@material-ui/core/FormControl'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import Validation from '../utils/validation'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -32,83 +31,66 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    textField: {
+        '&.passed fieldset': {
+            borderColor: 'green',
+            borderWidth: "2px"
+        },
+        '&.passed > div:hover fieldset': {
+            borderColor: 'green'
+        }
+    }
 }))
 
-export default function SignUp() {
-    // const router = useRouter()
-    const [form, setForm] = useState({
-        username: '',
-        password: '',
-        confirmPassword: ''
-    })
-    const [error, setError] = useState({
-        username: {
-            value: false,
-            text: ""
-        },
-        password: {
-            value: false,
-            text: ""
-        },
-        confirmPassword: {
-            value: false,
-            text: ""
-        }
-    })
+export default function SignUp(props) {
+    const router = useRouter()
+    const submitForm = useRef(null)
+    const [form, setForm] = useState(props.form)
     const [resMessage, setResMessage] = useState(false)
-    const validation = form => {
-        const { username, password, confirmPassword } = form
-        const passwordUpperCase = (!(password.split('').some(i => {
-            return i === i.toUpperCase() && !Number.isInteger(parseInt(i))
-        })) && password !== '')
-        const usernameCase = (password !== '' && confirmPassword !== '') && (username === '')
-        const passwordCase = (password === '' && confirmPassword !== '')
-        const confirmPasswordCase = (password !== '' && confirmPassword !== '' && password !== confirmPassword)
-        setError({
-            ...error,
-            username: {
-                value: usernameCase,
-                text: usernameCase ? "Please enter username in the space." : ""
-            },
-            password: {
-                value: passwordCase ? true : (passwordUpperCase ? true : false),
-                text: passwordCase ? "Please enter password in the space." : (passwordUpperCase ? "Please type at least 1 uppercase letter" : "")
-            },
-            confirmPassword: {
-                value: confirmPasswordCase,
-                text: confirmPasswordCase ? "Confirm Password doesn't match with password." : ""
-            }
-        })
-    }
-
     const handleChange = e => {
         const key = e.target.name
         const value = e.target.value
-        setForm({...form, [key]:value})
+        setForm(
+            Validation({
+                ...form, 
+                [key]:value
+            }).usernameEmpty()
+            .passwordUppercase()
+            .confirmPasswordMatching()
+            .value
+        )
     }
 
     const handleSubmit = async e => {
         e.preventDefault()
         try {
-            const res = await axios.post('/api/signup', form)
-            const { data: { message } } = res
-            setResMessage(message)
+            const { username, password } = form
+            const res = await axios.post('/api/signup', {
+                username: username.value,
+                password: password.value,
+            })
+            const { data: { status, message } } = res
+            if (!status) {
+                setForm(props.form)
+                submitForm.current.reset()
+                setResMessage(message)
+            } else {
+                setResMessage(`${message} and redirect to Login page in 5 second.`)
+                setTimeout(() => {
+                    router.push('/login')
+                }, 5000)
+            }
         } catch (error) {
             console.log(error)
         }
-        // router.push('/login')
     }
 
     const classes = useStyles()
-    const { username, password, confirmPassword } = error
-    const errorCheck = confirmPassword.value || password.value || username.value
-    const blankCheck = !(form.username.length > 0 && form.password.length > 0 && form.confirmPassword.length > 0)
-    useEffect(() => {
-        validation(form)
-    }, [form])
+    const { username, password, confirmPassword } = form
+    const errorCheck = confirmPassword.error || password.error || username.error
+    const blankCheck = !(username.value.length > 0 && password.value.length > 0 && confirmPassword.value.length > 0)
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
@@ -116,37 +98,41 @@ export default function SignUp() {
                 <Typography component="h1" variant="h5">
                     Sign Up
                 </Typography>
-                <form className={classes.form} onSubmit={handleSubmit}>
+                <form ref={submitForm} className={classes.form} onSubmit={handleSubmit}>
                     <TextField
-                        error={username.value} helperText={username.text}
+                        error={username.error || false} helperText={username.errorText || ""}
                         variant="outlined" margin="normal"
                         required fullWidth
                         id="username" label="Username"
                         name="username" autoComplete="username"
                         autoFocus onChange={handleChange}
+                        className={`${classes.textField} ${username.error || !username.value.length > 0 ? '' : 'passed'}`}
                     />
                     <TextField
-                        error={password.value} helperText={password.text}
+                        error={password.error} helperText={password.errorText || ""}
                         variant="outlined" min="6"
                         margin="normal" required
                         fullWidth name="password"
                         label="Password" type="password"
                         id="password" autoComplete="current-password"
                         onChange={handleChange}
+                        className={`${classes.textField} ${password.error || !password.value.length > 0 ? '' : 'passed'}`}
                     />
                     <TextField
-                        error={confirmPassword.value} helperText={confirmPassword.text}
+                        error={confirmPassword.error} helperText={confirmPassword.errorText || ""}
                         variant="outlined" min="6"
                         margin="normal" required
                         fullWidth name="confirmPassword"
                         label="Confirm Password" type="password"
                         id="confirmPassword" autoComplete="currentPassword"
                         onChange={handleChange}
+                        className={`${classes.textField} ${confirmPassword.error || !confirmPassword.value.length > 0 ? '' : 'passed'}`}
                     />
                     <Button
                         disabled={errorCheck || blankCheck} type="submit"
                         fullWidth variant="contained"
-                        color="primary" className={classes.submit}
+                        className={classes.submit}
+                        color="primary"
                     >
                         Sign Up
                     </Button>
@@ -167,4 +153,29 @@ export default function SignUp() {
             </div>
         </Container>
     )
+}
+
+export async function getStaticProps(context) {
+    console.log(context)
+    return {
+        props: {
+            form: {
+                username: {
+                    error: false,
+                    errorText: "",
+                    value: ""
+                },
+                password: {
+                    error: false,
+                    errorText: "",
+                    value: ""
+                },
+                confirmPassword: {
+                    error: false,
+                    errorText: "",
+                    value: ""
+                },
+            }
+        },
+    }
 }

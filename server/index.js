@@ -5,6 +5,7 @@ const cookieSession = require('cookie-session')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const { errorHandler } = require('./routes/middleware')
 
 // Middlewares
 const keys = require('./config/keys')
@@ -16,26 +17,33 @@ const handle = app.getRequestHandler()
 // Express Middlewares
 app.prepare()
     .then(() => {
+        const server = express()
+        server.use(express.json())
         // MongoDB
         mongoose
-            .connect(keys.mongoURI, { useNewUrlParser: true,})
+            .connect(keys.mongoURI, { 
+                useNewUrlParser: true,
+                useFindAndModify: false,
+                useCreateIndex: true
+            })
             .then(() => console.log('> Database Ready on Mlab'))
             .catch(err => console.error(err))
-        mongoose.set('useFindAndModify', false)
-        mongoose.set('useCreateIndex', true)
         require('./models/User')
-        const server = express()
         // Body Parser 
         server.use(bodyParser.json())
+        server.use(bodyParser.urlencoded({ extended: false }))
+        // Cookie Session
+        require('./service/passport')
+        server.use(cookieSession({
+            name: 'session',
+            maxAge: 30*24*60*60,
+            keys: [keys.cookieKeys],
+        }))
         // Passport Initialize
         server.use(passport.initialize())
         server.use(passport.session())
-        require('./service/passport')
-        // Cookie Session
-        server.use(cookieSession({
-            maxAge: 30*24*60*60,
-            keys: [keys.cookieKeys]
-        }))
+        // Routes Middleware
+        server.use(errorHandler)
         // Routes
         require('./routes/pages')(server, app)
         require('./routes/user')(server, app)
