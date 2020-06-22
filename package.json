@@ -6,7 +6,8 @@
     "server": "nodemon server/index.js",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT"
+    "start": "next start",
+    "export": "next export"
   },
   "dependencies": {
     "@material-ui/core": "^4.10.1",
@@ -17,23 +18,28 @@
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "jsonwebtoken": "^8.5.1",
     "less": "^3.11.3",
     "mongoose": "^5.9.19",
-    "next": "9.4.4",
+    "next": "^9.4.4",
+    "next-cookies": "^2.0.3",
     "next-fonts": "^1.1.0",
     "nodemon": "^2.0.4",
     "nookies": "^2.3.1",
     "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  },
   "main": "server/index.js",
   "engine": {
     "node": "10",

@@ -1,9 +1,9 @@
 exports.loginMiddleware = (err, req, res, next) => {
-    if (req.user) {
+    // if (req.user) {
         next()
-    } else {
-        return res.redirect('/login')
-    }
+    // } else {
+    //     return res.redirect('/login')
+    // }
 }
 
 exports.errorHandler = (err, req, res, next) => {
@@ -15,8 +15,4 @@ exports.errorHandler = (err, req, res, next) => {
             message: err.message
         }
     })
-}
-
-exports.corsHandler = (err, req, res, next) => {
-    
 }

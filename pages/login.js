@@ -67,7 +67,7 @@ export default function Login(props) {
         e.preventDefault()
         try {
             const { username, password } = form
-            const res = await axios.post('/api/login', {
+            const res = await axios.post('/api/hello', {
                 username: username.value,
                 password: password.value,
             })
@@ -78,13 +78,7 @@ export default function Login(props) {
                 setResMessage(message)
             } else {
                 setResMessage(`${message} and redirect to Login page in 5 second.`)
-                setCookie({}, user._id, token, {
-                    maxAge: 30 * 24 * 60 * 60,
-                    path: '/',
-                })
-                setTimeout(() => {
-                    Router.replace('/')
-                }, 5000)
+                Router.push('/')
             }
         } catch (error) {
             console.log(error)

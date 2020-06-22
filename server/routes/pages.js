@@ -10,10 +10,10 @@ module.exports = (server, app) => {
     server.get('/blog', (req, res) => {
         return app.render(req, res, '/blog')
     })
-    server.get('/admin', (req, res) => {
-        return app.render(req, res, '/admin')
-    })
     server.get('/dashboard', loginMiddleware, (req, res) => {
+        return app.render(req, res, '/dashboard')
+    })
+    server.get('/login', (req, res) => {
         return app.render(req, res, '/login')
     })
     server.get('/signup', (req, res) => {

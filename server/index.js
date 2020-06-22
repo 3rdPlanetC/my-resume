@@ -1,17 +1,20 @@
 // Import Library
 const express = require('express')
 const next = require('next')
+// const session = require('express-session')
 const cookieSession = require('cookie-session')
+const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const { errorHandler } = require('./routes/middleware')
+// const { errorHandler } = require('./routes/middleware')
+require('dotenv').config()
 
 // Middlewares
 const keys = require('./config/keys')
 const port = process.env.port || 3000
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev,})
+const app = next({dev})
 const handle = app.getRequestHandler()
 
 // Express Middlewares
@@ -19,7 +22,18 @@ app.prepare()
     .then(() => {
         const server = express()
         server.use(express.json())
+        server.use(cookieSession({
+            maxAge: 30*24*60*60,
+            // keys: [keys.cookieKeys]
+            keys: [process.env.KEY_SESSION]
+        }))
+        // Cookie Parser
+        server.use(cookieParser())
+        server.get('/profile', (req, res) => {
+            res.send(req.session)
+        })
         // MongoDB
+        require('./models/User')
         mongoose
             .connect(keys.mongoURI, { 
                 useNewUrlParser: true,
@@ -28,27 +42,18 @@ app.prepare()
             })
             .then(() => console.log('> Database Ready on Mlab'))
             .catch(err => console.error(err))
-        require('./models/User')
         // Body Parser 
         server.use(bodyParser.json())
         server.use(bodyParser.urlencoded({ extended: false }))
-        // Cookie Session
-        require('./service/passport')
-        server.use(cookieSession({
-            name: 'session',
-            maxAge: 30*24*60*60,
-            keys: [keys.cookieKeys],
-        }))
         // Passport Initialize
+        require('./service/passport')
         server.use(passport.initialize())
         server.use(passport.session())
-        // Routes Middleware
-        server.use(errorHandler)
         // Routes
         require('./routes/pages')(server, app)
         require('./routes/user')(server, app)
         // Fix
-        server.get('*', (req, res) => {
+        server.all('*', (req, res) => {
             return handle(req, res)
         })
         server.listen(port, (err) => {

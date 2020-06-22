@@ -5,30 +5,18 @@ const bcrypt = require('bcrypt')
 const User = mongoose.model('User')
 
 module.exports = (server, app) => {
-
-    passport.serializeUser((user, done) => {
-        done(null, user)
-    })
-    
-    passport.deserializeUser((id, done) => {
-        User.findById(id).then(user => {
-            done(null, user)
-        })
-    })
-
+    // Local Login
     server.post('/api/login', (req, res, next) => {
-        passport.authenticate('local', {session: false}, (err, user, info) => {
+        passport.authenticate('local', (err, user, info) => {
             if (err) return next(err)
             if(user) {
-                const token = jwt.sign(user.toJSON(), 'hello world', {expiresIn:30})
-                req.session = {user, token, 
-                    status: true,
-                    message: "Login Successfuly."
-                }
+                const token = jwt.sign({
+                    sub: user.toJSON(),
+                    iat: new Date().getTime()
+                }, 'asd', {expiresIn:30})
                 return res.status(200).json({user, token, 
                     status: true,
                     message: "Login Successfuly.",
-                    session: req.session
                 })
             } else {
                 res.status(200).send({
@@ -38,7 +26,7 @@ module.exports = (server, app) => {
              }
         })(req, res, next)
     })
-
+    // Local Signup
     server.post('/api/signup', (req, res) => {
         try {
             const { username, password } = req.body
@@ -66,7 +54,34 @@ module.exports = (server, app) => {
         }
     })
 
-    server.get('/api/current_user', (req, res) => {
+
+    // Testing
+    server.get('/api/user', (req, res, next) => {
         res.send(req.session)
     })
+
+    server.get('/api/cookies', (req, res, next) => {
+        res.send({
+            'signed': req.signedCookies,
+            'unsigned': req.cookies
+        })
+    })
+
+    server.get('/auth/facebook', 
+        passport.authenticate('facebook', { 
+            scope: ['email'] 
+        })
+    )
+
+    server.get('/auth/facebook/callback', passport.authenticate('facebook', { 
+        failureRedirect: '/login' 
+    }), (req, res) => {
+        res.redirect('/')
+    })
+
+    server.get('/user', 
+        passport.authenticate('jwt'), (req, res) => {
+            res.send('hello world')
+        }
+    )
 }

@@ -4,16 +4,24 @@ const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const passportJWT = require("passport-jwt")
 const LocalStrategy = require('passport-local').Strategy
+const FacebookStrategy = require('passport-facebook').Strategy
 const JWTStrategy = passportJWT.Strategy
 const ExtractJWT  = passportJWT.ExtractJwt
 
+passport.serializeUser((user, done) => {
+    done(null, user.id)
+})
+
+passport.deserializeUser((id, done) => {
+    User.findById(id).then(user => {
+        done(null, user)
+    })
+})
+
 passport.use(new LocalStrategy(
-    {
-        usernameField: 'username',
-        passwordField: 'password'
-    }, 
-    (username, password, done) => {      
-        return User.findOne({ username: username }).then(user => {
+    {passReqToCallback : true},
+    (req, username, password, done) => {
+        User.findOne({ username: username }).then(user => {
             if (!user) {
                 return done(null, false, {message: 'Incorrect username or password.' })
             } else {
@@ -28,19 +36,41 @@ passport.use(new LocalStrategy(
     }
 ))
 
+passport.use(new FacebookStrategy(
+    {
+        clientID: '729856777760887',
+        clientSecret: '8ec3fd9227c8170e162da0ad7f96a017',
+        callbackURL: "http://localhost:5000/auth/facebook/callback"
+    }, (accessToken, refreshToken, profile, done) => {
+        User.findOne({ username: profile.id }).then((err, existingUser) => {
+            if (existingUser) {
+                done(null, existingUser)
+            } else {
+                new User({
+                    // ...profile,
+                    username: profile.id,
+                    password: '1234'
+                }).save().then(result => {
+                    done(err, result)
+                })
+            }
+        })
+    }
+))
+
 passport.use(new JWTStrategy(
     {
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-        secretOrKey   : 'hello world'
+        secretOrKey   : 'asd'
     }, 
     (jwtPayload, done) => {
-        
-    return User.findOneById(jwtPayload.id)
-        .then(user => {
-            return done(null, user)
-        })
-        .catch(err => {
-            return done(err)
-        })
+        console.log(jwtPayload.id)
+        return User.findById(jwtPayload.id)
+            .then(user => {
+                return done(null, user)
+            })
+            .catch(err => {
+                return done(err)
+            })
     }
 ))
