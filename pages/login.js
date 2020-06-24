@@ -157,7 +157,7 @@ export default function Login(props) {
     )
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
     return {
         props: {
             form: {

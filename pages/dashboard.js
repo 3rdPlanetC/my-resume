@@ -6,10 +6,10 @@ export default function Dashboard() {
     )
 }
 
-// export async function getStaticProps() {
-//     return {
-//         props: {
+export async function getServerSideProps() {
+    return {
+        props: {
             
-//         }
-//     }
-// }
+        }
+    }
+}

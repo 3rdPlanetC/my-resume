@@ -40,7 +40,7 @@ const BlogPost = props => {
     )
 }
 
-const Blog = props => {
+export default function Blog(props) {
     return (
         <Grid className={`${true ? "theme-dark" : "theme-light"} body-wrapper blog`}>
             <HeaderSEO title="E3T - Blog">
@@ -66,5 +66,3 @@ const Blog = props => {
         </Grid>
     )
 }
-
-export default Blog

@@ -78,7 +78,7 @@ const JobPost = props => {
     )
 }
 
-const Home = props => {
+export default function Home(props) {
     return (
         <Grid className={`${true ? "theme-dark" : "theme-light"} body-wrapper index`}>
             <HeaderSEO title="E3T - Homepage">
@@ -104,5 +104,3 @@ const Home = props => {
         </Grid>
     )
 }
-
-export default Home
