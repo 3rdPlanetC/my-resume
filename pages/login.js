@@ -77,14 +77,15 @@ export default function Login(props) {
                 setForm(props.form)
                 submitForm.current.reset()
             } else {
-                const isLogin = await axios.get('/api/auth/redirect', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                const { message } = isLogin.data
-                setResMessage(message)
-                Router.push('/dashboard')
+                console.log(token)
+                // const isLogin = await axios.get('/api/auth/redirect', {
+                //     headers: {
+                //         Authorization: `Bearer ${token}`
+                //     }
+                // })
+                // const { message } = isLogin.data
+                // setResMessage(message)
+                // Router.push('/dashboard')
             }
         } catch (error) {
             console.log(error)
