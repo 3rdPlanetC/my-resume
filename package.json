@@ -28,7 +28,6 @@
     "less": "^3.11.3",
     "mongoose": "^5.9.19",
     "next": "^9.4.4",
-    "next-cookies": "^2.0.3",
     "next-fonts": "^1.1.0",
     "nodemon": "^2.0.4",
     "nookies": "^2.3.1",

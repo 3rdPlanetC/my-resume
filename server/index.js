@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-require('dotenv').config()
 
 // Middlewares
 const keys = require('./config/keys')
