@@ -10,7 +10,6 @@ require('dotenv').config()
 
 // Middlewares
 const keys = require('./config/keys')
-const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({dev})
 const handle = app.getRequestHandler()
@@ -51,9 +50,9 @@ app.prepare()
         server.all('*', (req, res) => {
             return handle(req, res)
         })
-        server.listen(port, (err) => {
+        server.listen(3000, (err) => {
             if (err) throw err
-            console.log(`> Server Ready on http://localhost:${port}`)
+            console.log(`> Server Ready on http://localhost:3000`)
         })
     }
 )
