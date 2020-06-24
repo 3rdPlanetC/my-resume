@@ -11,6 +11,7 @@ module.exports = (server, app) => {
         passport.authenticate('local', (err, user, info) => {
             if (err) return next(err)
             if(user) {
+                console.log(user)
                 const token = jwt.sign({
                     payload: user.toJSON(),
                     iat: new Date().getTime()
