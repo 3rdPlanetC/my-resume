@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react'
 import axios from 'axios'
 import Router from 'next/router'
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
 // library
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -50,6 +49,7 @@ export default function Login(props) {
     const submitForm = useRef(null)
     const [form, setForm] = useState(props.form)
     const [resMessage, setResMessage] = useState(false)
+
     const handleChange = e => {
         const key = e.target.name
         const value = e.target.value
@@ -64,26 +64,33 @@ export default function Login(props) {
     }
 
     const handleSubmit = async e => {
+        setResMessage("Authenticating...")
         e.preventDefault()
         try {
             const { username, password } = form
-            const res = await axios.post('/api/hello', {
+            const res = await axios.post('/api/login', {
                 username: username.value,
                 password: password.value,
             })
-            const { status, message, user, token } = res.data
+            const { status, token } = res.data
             if (!status) {
                 setForm(props.form)
                 submitForm.current.reset()
-                setResMessage(message)
             } else {
-                setResMessage(`${message} and redirect to Login page in 5 second.`)
-                Router.push('/')
+                const isLogin = await axios.get('/api/auth/redirect', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                const { message } = isLogin.data
+                setResMessage(message)
+                Router.push('/dashboard')
             }
         } catch (error) {
             console.log(error)
         }
     }
+
     const classes = useStyles()
     const { username, password } = form
     const errorCheck = password.error || username.error

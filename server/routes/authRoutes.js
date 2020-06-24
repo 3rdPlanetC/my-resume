@@ -1,3 +1,4 @@
+const keys = require('../config/keys')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
@@ -11,15 +12,15 @@ module.exports = (server, app) => {
             if (err) return next(err)
             if(user) {
                 const token = jwt.sign({
-                    sub: user.toJSON(),
+                    payload: user.toJSON(),
                     iat: new Date().getTime()
-                }, 'asd', {expiresIn:30})
-                return res.status(200).json({user, token, 
+                }, keys.tokenSecret, { expiresIn: 3600 })
+                return res.status(200).json({
                     status: true,
-                    message: "Login Successfuly.",
+                    token: token
                 })
             } else {
-                res.status(200).send({
+                res.status(401).send({
                     status: false,
                     message: info
                 })
@@ -53,35 +54,21 @@ module.exports = (server, app) => {
             console.log(error)
         }
     })
-
-
-    // Testing
-    server.get('/api/user', (req, res, next) => {
-        res.send(req.session)
-    })
-
-    server.get('/api/cookies', (req, res, next) => {
-        res.send({
-            'signed': req.signedCookies,
-            'unsigned': req.cookies
-        })
-    })
-
-    server.get('/auth/facebook', 
-        passport.authenticate('facebook', { 
-            scope: ['email'] 
-        })
-    )
-
-    server.get('/auth/facebook/callback', passport.authenticate('facebook', { 
-        failureRedirect: '/login' 
-    }), (req, res) => {
+    // Logout
+    server.get('/api/logout', (req, res) => {
+        req.logout()
         res.redirect('/')
     })
-
-    server.get('/user', 
-        passport.authenticate('jwt'), (req, res) => {
-            res.send('hello world')
+    // JWT Authenticate
+    server.get('/api/auth/redirect', passport.authenticate('jwt'), (req, res) => {
+            res.status(200).json({
+                message: 'Login Successfully.'
+            })
         }
     )
+
+
+    server.get('/api/current_user', (req, res) => {
+        res.send(req.user)
+    })
 }

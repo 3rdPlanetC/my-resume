@@ -1,3 +1,4 @@
+const keys = require('../config/keys')
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
@@ -19,8 +20,7 @@ passport.deserializeUser((id, done) => {
 })
 
 passport.use(new LocalStrategy(
-    {passReqToCallback : true},
-    (req, username, password, done) => {
+    (username, password, done) => {
         User.findOne({ username: username }).then(user => {
             if (!user) {
                 return done(null, false, {message: 'Incorrect username or password.' })
@@ -36,36 +36,13 @@ passport.use(new LocalStrategy(
     }
 ))
 
-passport.use(new FacebookStrategy(
-    {
-        clientID: '729856777760887',
-        clientSecret: '8ec3fd9227c8170e162da0ad7f96a017',
-        callbackURL: "http://localhost:5000/auth/facebook/callback"
-    }, (accessToken, refreshToken, profile, done) => {
-        User.findOne({ username: profile.id }).then((err, existingUser) => {
-            if (existingUser) {
-                done(null, existingUser)
-            } else {
-                new User({
-                    // ...profile,
-                    username: profile.id,
-                    password: '1234'
-                }).save().then(result => {
-                    done(err, result)
-                })
-            }
-        })
-    }
-))
-
 passport.use(new JWTStrategy(
     {
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-        secretOrKey   : 'asd'
+        secretOrKey   : keys.tokenSecret
     }, 
-    (jwtPayload, done) => {
-        console.log(jwtPayload.id)
-        return User.findById(jwtPayload.id)
+    ({ payload, iat }, done) => {
+        return User.findById(payload._id)
             .then(user => {
                 return done(null, user)
             })

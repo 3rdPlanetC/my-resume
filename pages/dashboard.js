@@ -1,7 +1,15 @@
-const Dashboard = () => {
+// import axios from 'axios'
+
+export default function Dashboard() {
     return (
         <div>Dashboard</div>
     )
 }
 
-export default Dashboard
+// export async function getStaticProps() {
+//     return {
+//         props: {
+            
+//         }
+//     }
+// }

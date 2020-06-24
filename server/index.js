@@ -1,13 +1,11 @@
 // Import Library
 const express = require('express')
 const next = require('next')
-// const session = require('express-session')
 const cookieSession = require('cookie-session')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-// const { errorHandler } = require('./routes/middleware')
 require('dotenv').config()
 
 // Middlewares
@@ -22,16 +20,13 @@ app.prepare()
     .then(() => {
         const server = express()
         server.use(express.json())
+        // Cookie Session
         server.use(cookieSession({
-            maxAge: 30*24*60*60,
-            // keys: [keys.cookieKeys]
-            keys: [process.env.KEY_SESSION]
+            maxAge: 1000*60*15,
+            keys: [keys.cookieKeys]
         }))
         // Cookie Parser
         server.use(cookieParser())
-        server.get('/profile', (req, res) => {
-            res.send(req.session)
-        })
         // MongoDB
         require('./models/User')
         mongoose
@@ -43,15 +38,15 @@ app.prepare()
             .then(() => console.log('> Database Ready on Mlab'))
             .catch(err => console.error(err))
         // Body Parser 
-        server.use(bodyParser.json())
-        server.use(bodyParser.urlencoded({ extended: false }))
+        server.use(bodyParser.json({ limit: '5mb' }))
+        server.use(bodyParser.urlencoded({ extended: true }))
         // Passport Initialize
         require('./service/passport')
         server.use(passport.initialize())
         server.use(passport.session())
         // Routes
-        require('./routes/pages')(server, app)
-        require('./routes/user')(server, app)
+        require('./routes/pagesRoutes')(server, app)
+        require('./routes/authRoutes')(server, app)
         // Fix
         server.all('*', (req, res) => {
             return handle(req, res)

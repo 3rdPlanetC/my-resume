@@ -1,9 +1,9 @@
-exports.loginMiddleware = (err, req, res, next) => {
-    // if (req.user) {
+exports.loginMiddleware = (req, res, next) => {
+    if (req.user) {
         next()
-    // } else {
-    //     return res.redirect('/login')
-    // }
+    } else {
+        return res.redirect('/login')
+    }
 }
 
 exports.errorHandler = (err, req, res, next) => {
