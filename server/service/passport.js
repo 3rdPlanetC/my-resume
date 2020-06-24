@@ -5,7 +5,6 @@ const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const passportJWT = require("passport-jwt")
 const LocalStrategy = require('passport-local').Strategy
-const FacebookStrategy = require('passport-facebook').Strategy
 const JWTStrategy = passportJWT.Strategy
 const ExtractJWT  = passportJWT.ExtractJwt
 
