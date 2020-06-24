@@ -61,14 +61,8 @@ module.exports = (server, app) => {
     })
     // JWT Authenticate
     server.get('/api/auth/redirect', passport.authenticate('jwt'), (req, res) => {
-            res.status(200).json({
-                message: 'Login Successfully.'
-            })
-        }
-    )
-
-
-    server.get('/api/current_user', (req, res) => {
-        res.send(req.user)
+        res.status(200).json({
+            message: 'Login Successfully.'
+        })
     })
 }
