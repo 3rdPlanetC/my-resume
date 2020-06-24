@@ -6,7 +6,8 @@
     "server": "nodemon server/index.js",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "local-start": "next start",
+    "start": "next start -p $PORT",
     "heroku-postbuild": "npm run build",
     "export": "next export"
   },
