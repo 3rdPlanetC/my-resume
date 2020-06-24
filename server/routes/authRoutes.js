@@ -8,24 +8,25 @@ const User = mongoose.model('User')
 module.exports = (server, app) => {
     // Local Login
     server.post('/api/login', (req, res, next) => {
-        passport.authenticate('local', (err, user, info) => {
-            if (err) return next(err)
-            if(user) {
-                const token = jwt.sign({
-                    payload: user.toJSON(),
-                    iat: new Date().getTime()
-                }, keys.tokenSecret, { expiresIn: 3600 })
-                return res.status(200).json({
-                    status: true,
-                    token: token
-                })
-            } else {
-                res.status(401).send({
-                    status: false,
-                    message: info
-                })
-             }
-        })(req, res, next)
+        res.send('hello world')
+        // passport.authenticate('local', (err, user, info) => {
+        //     if (err) return next(err)
+        //     if(user) {
+        //         const token = jwt.sign({
+        //             payload: user.toJSON(),
+        //             iat: new Date().getTime()
+        //         }, keys.tokenSecret, { expiresIn: 3600 })
+        //         return res.status(200).json({
+        //             status: true,
+        //             token: token
+        //         })
+        //     } else {
+        //         res.status(401).send({
+        //             status: false,
+        //             message: info
+        //         })
+        //      }
+        // })(req, res, next)
     })
     // Local Signup
     server.post('/api/signup', (req, res) => {

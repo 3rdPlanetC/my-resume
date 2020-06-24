@@ -72,6 +72,7 @@ export default function Login(props) {
                 username: username.value,
                 password: password.value,
             })
+            console.log(res.data)
             const { status, token } = res.data
             if (!status) {
                 setForm(props.form)
