@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "local-start": "next start",
-    "start": "next start -p $PORT",
+    "start": "NODE_ENV=production node server/index.js",
     "heroku-postbuild": "npm run build",
     "export": "next export"
   },
