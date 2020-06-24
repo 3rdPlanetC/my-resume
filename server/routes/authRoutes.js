@@ -9,9 +9,9 @@ module.exports = (server, app) => {
     // Local Login
     server.post('/api/login', (req, res, next) => {
         passport.authenticate('local', (err, user, info) => {
+            console.log(err, user, info)
             if (err) return next(err)
             if(user) {
-                console.log(user)
                 const token = jwt.sign({
                     payload: user.toJSON(),
                     iat: new Date().getTime()
