@@ -27,7 +27,7 @@ app.prepare()
         // Cookie Parser
         server.use(cookieParser())
         // MongoDB
-        require('./models/User')
+        require('./models/UserSchema')
         mongoose
             .connect(keys.mongoURI, { 
                 useNewUrlParser: true,

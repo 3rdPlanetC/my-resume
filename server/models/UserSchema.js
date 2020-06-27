@@ -3,8 +3,8 @@ const { Schema } = mongoose
 
 const UserSchema = new Schema({
     facebookId: { type: String },
-    username: { type: String },
-    password: { type: String },
+    username: { type: String, trim: true },
+    password: { type: String, trim: true },
     displayName: { type: String },
     gender: { type: String },
 }, {

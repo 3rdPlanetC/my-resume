@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 
 const Post = () => {
-    const router = useRouter();
-    const { slug } = router.query;
+    const router = useRouter()
+    const { id } = router.query
 
-    return <p>My Blog Post: {slug}</p>
+    return <p>My Blog Post: {id}</p>
 }
 
-export default Post;
+export default Post

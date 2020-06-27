@@ -10,6 +10,9 @@ module.exports = (server, app) => {
     server.get('/blog', (req, res) => {
         return app.render(req, res, '/blog')
     })
+    server.get('/blog/:id', (req, res) => {
+        return app.render(req, res, '/blog/[id]')
+    })
     server.get('/dashboard', loginMiddleware, (req, res) => {
         return app.render(req, res, '/dashboard')
     })
