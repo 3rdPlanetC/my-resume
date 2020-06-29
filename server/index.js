@@ -21,7 +21,7 @@ app.prepare()
         server.use(express.json())
         // Cookie Session
         server.use(cookieSession({
-            maxAge: 1000*60*15,
+            maxAge: 1000*60*60,
             keys: [keys.cookieKeys]
         }))
         // Cookie Parser
@@ -29,7 +29,7 @@ app.prepare()
         // MongoDB
         require('./models/UserSchema')
         mongoose
-            .connect(keys.mongoURI, { 
+            .connect(keys.mongoURI, {
                 useNewUrlParser: true,
                 useFindAndModify: false,
                 useCreateIndex: true

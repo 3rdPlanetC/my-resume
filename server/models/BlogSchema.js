@@ -14,3 +14,5 @@ const BlogSchema = new Schema({
         type: Buffer
     }
 })
+
+mongoose.model('Blog', BlogSchema)

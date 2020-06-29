@@ -9,9 +9,8 @@ module.exports = (server, app) => {
     // Local Login
     server.post('/api/login', (req, res, next) => {
         passport.authenticate('local', (err, user, info) => {
-            console.log(err, user, info)
             if (err) return next(err)
-            if(user) {
+            if (user) {
                 const token = jwt.sign({
                     payload: user.toJSON(),
                     iat: new Date().getTime()
@@ -21,9 +20,9 @@ module.exports = (server, app) => {
                     token: token
                 })
             } else {
-                res.status(401).send({
+                res.status(200).send({
                     status: false,
-                    message: info
+                    message: info.message
                 })
              }
         })(req, res, next)
@@ -58,7 +57,7 @@ module.exports = (server, app) => {
     // Logout
     server.get('/api/logout', (req, res) => {
         req.logout()
-        res.redirect('/')
+        res.redirect('/login')
     })
     // JWT Authenticate
     server.get('/api/auth/redirect', passport.authenticate('jwt'), (req, res) => {

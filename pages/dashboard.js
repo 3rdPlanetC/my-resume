@@ -1,8 +1,11 @@
-// import axios from 'axios'
+import { Topbar } from '../layout/DashboardLayout/components/'
 
 export default function Dashboard() {
     return (
-        <div>Dashboard</div>
+        <div>
+            <Topbar />
+            Dashboard
+        </div>
     )
 }
 

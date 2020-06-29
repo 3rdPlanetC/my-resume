@@ -72,11 +72,11 @@ export default function Login(props) {
                 username: username.value,
                 password: password.value,
             })
-            console.log(res.data)
-            const { status, token } = res.data
+            const { status, message, token } = res.data
             if (!status) {
                 setForm(props.form)
                 submitForm.current.reset()
+                setResMessage(message)
             } else {
                 const isLogin = await axios.get('/api/auth/redirect', {
                     headers: {
@@ -117,7 +117,7 @@ export default function Login(props) {
                     />
                     <TextField
                         error={password.error} helperText={password.errorText || ""}
-                        variant="outlined" min="6"
+                        variant="outlined"  
                         margin="normal" required
                         fullWidth name="password"
                         label="Password" type="password"
