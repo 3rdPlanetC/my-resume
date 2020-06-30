@@ -1,6 +1,6 @@
 import { Topbar } from './components'
 
-const DashboardLayout = props => {
+export default props => {
     return (
         <div>
             <Topbar 
@@ -12,5 +12,3 @@ const DashboardLayout = props => {
         </div>
     )
 }
-
-export default DashboardLayout

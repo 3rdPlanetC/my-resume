@@ -1,16 +1,13 @@
 // core
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import { Grid, Box } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
+// Layout
+import { MainLayout } from '../layout'
+// Component
+import { Seo, Text } from '../components'
 // css, js config
 import "../static/less/pages/index.less"
-// Components
-import HeaderSEO from '../components/etc/HeaderSEO'
-import NavBar from '../components/NavigatorBar'
-import LeftSideBar from '../components/LeftSideBar'
-import Main from '../components/Main'
-import RightSideBar from '../components/RightSideBar'
-import Text from "../layout/Text"
 
 const JobImage = props => {
     const { imageStatus, handleImageLoaded, handleImageErrored } = props
@@ -78,32 +75,18 @@ const JobPost = props => {
 
 export default props => {
     return (
-        <Grid className={`${true ? "theme-dark" : "theme-light"} body-wrapper index`}>
-            <HeaderSEO title="E3T - Homepage">
+        <Fragment>
+            <Seo title="E3T - Homepage">
                 <script async type="module" src="/static/js/style.js" id="leftside" page="index"/>
-            </HeaderSEO>
-            <Grid container spacing={0}>
-                {/* Left Side Bar */}
-                <Grid item lg={2} md={3} container className="leftbar-grid">
-                    <LeftSideBar />
-                </Grid>
-                {/* NavBar && Main */}
-                <Grid item lg={8} md={7} className="center-grid">
-                    <NavBar />
-                    <Main>
-                        <JobPost />
-                    </Main>
-                </Grid>
-                {/* Right Side Bar */}
-                <Grid item lg={2} md={2} container className="rightbar-grid">
-                    <RightSideBar />
-                </Grid>
-            </Grid>
-        </Grid>
+            </Seo>
+            <MainLayout>
+                <JobPost />
+            </MainLayout>
+        </Fragment>
     )
 }
 
-export const getServerSideProps = props => {
+export const getStaticProps = props => {
     return {
         props: {
 

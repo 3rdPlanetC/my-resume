@@ -1,3 +1,4 @@
+// core
 import { useState, useRef } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -11,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import Validation from '../utils/validation'
+import { Validation } from '../utils'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-export default function SignUp(props) {
+export default (props) => {
     const router = useRouter()
     const submitForm = useRef(null)
     const [form, setForm] = useState(props.form)
@@ -155,7 +156,7 @@ export default function SignUp(props) {
     )
 }
 
-export async function getServerSideProps(context) {
+export const getStaticProps =  async context => {
     return {
         props: {
             form: {

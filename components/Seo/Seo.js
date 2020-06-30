@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-const HeaderSEO = (props) => {
+export default props => {
     return (
         <Head>
             <title>{props.title}</title>
@@ -10,5 +10,3 @@ const HeaderSEO = (props) => {
         </Head>
     )
 }
-
-export default HeaderSEO

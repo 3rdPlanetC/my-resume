@@ -1,6 +1,6 @@
-import Typography from '@material-ui/core/Typography'
+import { Typography }  from '@material-ui/core'
 
-const Text = props => {
+export default props => {
     return (
         <Typography variant={props.ele} gutterBottom>
             <span className={`${props.fontClass} ${props.spanClass}`} id={props.id} title={props.children}>
@@ -9,5 +9,3 @@ const Text = props => {
         </Typography>
     )
 }
-
-export default Text

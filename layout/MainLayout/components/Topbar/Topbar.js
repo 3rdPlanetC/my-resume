@@ -1,13 +1,9 @@
-import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
-import NavLink from '../../layout/NavLink'
-import { Menu } from '../../static/js/collection'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import InputBase from '@material-ui/core/InputBase'
+import { Grid, Box, AppBar, Toolbar, InputBase } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
+import Link from 'next/link'
+import { Menu } from '../../../../static/js/collection'
 
-const NavBar = props => {
+export default props => {
     return (
         <Grid lg={12} item className="navbar-grid">
             <AppBar position="static" className={`navbar-wrapper ${true ? "theme-dark": "theme-light"}`}>
@@ -15,9 +11,11 @@ const NavBar = props => {
                     <Grid item lg={6} className="navbar-menu">
                         {Menu.map((item, index) => 
                             <Box key={index}>
-                                <NavLink href={item.href}>
-                                    {item.name}
-                                </NavLink>
+                                <Link href={item.href} as={item.href}>
+                                    <a className="kanit-medium">
+                                        {item.name}
+                                    </a>
+                                </Link>
                             </Box>
                         )}
                     </Grid>
@@ -40,5 +38,3 @@ const NavBar = props => {
         </Grid>
     )
 }
-
-export default NavBar

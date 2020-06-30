@@ -1,11 +1,9 @@
-import Grid from '@material-ui/core/Grid'
+import { Grid } from '@material-ui/core'
 
-const RightSideBar = props => {
+export default props => {
     return (
         <Grid item lg={12} container className={`${true ? "theme-dark": "theme-light"} .rightbar-wrapper`}>
             <p>RightSideBar</p>
         </Grid>
     )
 }
-
-export default RightSideBar

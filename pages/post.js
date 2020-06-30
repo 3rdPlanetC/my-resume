@@ -1,10 +1,17 @@
+// core
 import { useRouter } from 'next/router'
 
-const Post = () => {
+export default () => {
     const router = useRouter()
     const { id } = router.query
 
     return <p>My Blog Post: {id}</p>
 }
 
-export default Post
+export const getStaticProps = async ctx => {
+    return {
+        props: {
+
+        }
+    }
+}

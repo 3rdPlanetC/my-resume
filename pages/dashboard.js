@@ -1,6 +1,6 @@
 import { Topbar } from '../layout/DashboardLayout/components/'
 
-export default function Dashboard() {
+export default () => {
     return (
         <div>
             <Topbar />
@@ -9,7 +9,7 @@ export default function Dashboard() {
     )
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps = async ctx => {
     return {
         props: {
             
