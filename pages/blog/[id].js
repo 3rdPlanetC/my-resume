@@ -19,22 +19,10 @@ export async function getStaticPaths() {
   }
 }
 
-// export async function getStaticProps(ctx) {
-//     console.log(ctx)
-//     return {
-//         props: {
-
-//         }
-//     }
-  // Fetch necessary data for the blog post using params.id
-// }
-
-export async function getStaticProps({req, res}) {
-    const { params } = req
-    const { id } = params
+export async function getStaticProps() {
     return {
         props: {
-            id
+
         }
     }
 }
