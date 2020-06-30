@@ -29,7 +29,7 @@ export default function BlogId(props) {
   // Fetch necessary data for the blog post using params.id
 // }
 
-export async function getServerSideProps({req, res}) {
+export async function getStaticProps({req, res}) {
     const { params } = req
     const { id } = params
     return {
