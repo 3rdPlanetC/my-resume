@@ -7,7 +7,7 @@ import { MainLayout } from '../layout'
 // Component
 import { Seo, Text } from '../components'
 // css, js config
-// import "../static/less/pages/blog.css"
+import "../static/less/pages/blog.css"
 
 const BlogPost = props => {
     return (
