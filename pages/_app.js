@@ -1,5 +1,5 @@
 import { CssBaseline } from '@material-ui/core'
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { orange } from '@material-ui/core/colors'
 
 const theme = createMuiTheme({

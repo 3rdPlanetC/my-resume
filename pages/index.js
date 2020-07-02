@@ -1,6 +1,8 @@
 // core
 import { Fragment } from 'react'
+// library
 import { Grid, Box } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 // Layout
 import { MainLayout } from '../layout'
 // Component
@@ -8,6 +10,12 @@ import { Seo, Text } from '../components'
 import ImageContainer from '../components/Image/Image'
 // css, js config
 import "../static/less/pages/index.less"
+
+const useStyle = makeStyles(theme => ({
+    root: {
+        color: theme.status.danger
+    }
+}))
 
 const JobImage = props => {
     const { index } = props
@@ -22,6 +30,7 @@ const JobImage = props => {
 }
 
 const JobPost = props => {
+    const classes = useStyle()
     return (
         <Grid container direction="row">
             {[1,2,3,4,5,6,7,8].map((item, index) =>
@@ -32,7 +41,7 @@ const JobPost = props => {
                         />
                     </Box>
                     <Box className="box-title box-child">
-                        <Text ele="h5" fontClass="kanit-medium" spanClass="box-title" gutterBottom id={`box-title-${index}`}>
+                        <Text ele="h5" fontClass={`kanit-medium ${classes.root}`} spanClass="box-title" gutterBottom id={`box-title-${index}`}>
                             หัวเรื่องทดสอบๆ {index}
                         </Text>
                     </Box>
