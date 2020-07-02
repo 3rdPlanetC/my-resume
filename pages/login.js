@@ -3,9 +3,10 @@ import { useState, useRef } from 'react'
 import axios from 'axios'
 import Router from 'next/router'
 // library
-import { Avatar, Button, TextField, FormControlLabel, Checkbox, Link, Grid, Typography, Container } from '@material-ui/core'
+import { Avatar, Button, TextField, Link, Grid, Typography, Container } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { makeStyles } from '@material-ui/core/styles'
+// custom
 import { Validation } from '../utils'
 
 const useStyles = makeStyles((theme) => ({
@@ -66,8 +67,8 @@ export default props => {
     }
 
     const handleSubmit = async e => {
-        setResMessage("Authenticating...")
         e.preventDefault()
+        setResMessage("Authenticating...")
         try {
             const { username, password } = form
             const res = await axios.post('/api/login', {

@@ -1,4 +1,4 @@
-const keys = require('../config/keys')
+const keys = require('../config')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')

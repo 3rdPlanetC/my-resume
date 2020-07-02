@@ -1,55 +1,34 @@
 // core
-import { useState, Fragment } from 'react'
+import { Fragment } from 'react'
 import { Grid, Box } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
 // Layout
 import { MainLayout } from '../layout'
 // Component
 import { Seo, Text } from '../components'
+import ImageContainer from '../components/Image/Image'
 // css, js config
 import "../static/less/pages/index.less"
 
 const JobImage = props => {
-    const { imageStatus, handleImageLoaded, handleImageErrored } = props
+    const { index } = props
     return (
-        <>
-            <img src="https://source.unsplash.com/random" 
-                alt="test"
-                onLoad={handleImageLoaded}
-                onError={handleImageErrored}
-                style={!imageStatus ? (
-                    {
-                        display: 'none'
-                    }
-                ) : (
-                    {
-                        display: 'initial'
-                    }
-                )}
-            />
-            {!imageStatus && <Skeleton animation="wave" variant="rect" width="100%" height="100%"/>}
-        </>
+        <ImageContainer
+            src={`https://source.unsplash.com/random?random=${index}`}
+            height={250}
+            width={250}
+            alt="test"
+        />
     )
 }
 
 const JobPost = props => {
-    const [imageStatus, setImageStatus] = useState(false)
-    const handleImageLoaded = () => {
-        setImageStatus(true)
-      }
-    
-    const handleImageErrored = () => {
-        console.log("error loading image")
-    }
     return (
         <Grid container direction="row">
             {[1,2,3,4,5,6,7,8].map((item, index) =>
                 <Grid item xl={3} lg={3} md={4} sm={6} className="box-wrapper" key={index}>
                     <Box className="box-image box-child">
                         <JobImage 
-                            imageStatus={imageStatus}
-                            handleImageLoaded={handleImageLoaded}
-                            handleImageErrored={handleImageErrored}
+                            index={index}
                         />
                     </Box>
                     <Box className="box-title box-child">

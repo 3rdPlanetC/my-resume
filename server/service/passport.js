@@ -1,4 +1,4 @@
-const keys = require('../config/keys')
+const keys = require('../config')
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
