@@ -65,7 +65,7 @@ export default props => {
     )
 }
 
-export const getStaticProps = props => {
+export const getServerSideProps = props => {
     return {
         props: {
 
