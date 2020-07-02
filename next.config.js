@@ -1,7 +1,7 @@
 const withLess = require('@zeit/next-less')
 const withFonts = require('next-fonts')
 const withCSS = require('@zeit/next-css')
-module.exports = withFonts(withLess(withCSS({
+module.exports = withFonts(withCSS(withLess({
     cssLoaderOptions: {
         importLoaders: 1,
         localIdentName: "[local]___[hash:base64:5]",

@@ -9,7 +9,7 @@
     "pm-monit": "pm2 monit",
     "pm-start": "pm2 start server/index.js -i 2",
     "server": "nodemon server/index.js",
-    "start": "next start -p $PORT",
+    "start": "pm2 start server/index.js -i 2",
     "build": "next build",
     "heroku-postbuild": "npm run build",
     "export": "next export"
