@@ -1,9 +1,6 @@
 const withLess = require('@zeit/next-less')
 const withFonts = require('next-fonts')
 module.exports = withFonts(withLess({
-    lessLoaderOptions: {
-        javascriptEnabled: true,
-    },
     webpack: config => {
         config.module.rules.push({
             test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
