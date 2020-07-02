@@ -9,7 +9,7 @@ import { MainLayout } from '../layout'
 import { Seo, Text } from '../components'
 import ImageContainer from '../components/Image/Image'
 // css, js config
-import "../static/less/pages/index.less"
+// import "../static/less/pages/index.less"
 
 const useStyle = makeStyles(theme => ({
     root: {
