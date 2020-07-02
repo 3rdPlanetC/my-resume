@@ -8,10 +8,11 @@
     "pm-restart": "pm2 restart all",
     "pm-monit": "pm2 monit",
     "server": "nodemon server",
-    "start": "node server",
+    "start": "cross-env NODE_ENV=production node server.js",
     "build": "next build",
     "heroku-postbuild": "npm run build",
-    "export": "next export"
+    "export": "next export",
+    "local-start": "next start"
   },
   "dependencies": {
     "@material-ui/core": "^4.10.1",
