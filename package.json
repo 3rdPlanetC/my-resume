@@ -19,6 +19,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
+    "@zeit/next-sass": "^1.0.1",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
