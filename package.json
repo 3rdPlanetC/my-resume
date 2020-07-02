@@ -8,8 +8,8 @@
     "pm-restart": "pm2 restart all",
     "pm-monit": "pm2 monit",
     "pm-start": "pm2 start server/index.js -i 1",
-    "server": "nodemon server/index.js",
-    "start": "pm2 start server/index.js -i 2",
+    "server": "nodemon server",
+    "start": "node server",
     "build": "next build",
     "heroku-postbuild": "npm run build",
     "export": "next export"
