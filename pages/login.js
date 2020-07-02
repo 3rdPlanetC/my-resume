@@ -157,7 +157,7 @@ export default props => {
     )
 }
 
-export const getServerSideProps = async ctx => {
+export const getStaticProps = async ctx => {
     return {
         props: {
             form: {

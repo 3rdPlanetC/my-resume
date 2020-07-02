@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "pm-server": "pm2 start server/index.js -i 2",
+    "pm-stop": "pm2 delete all",
+    "pm-restart": "pm2 restart all",
+    "pm-monit": "pm2 monit",
+    "pm-start": "pm2 start server/index.js -i 2",
     "server": "nodemon server/index.js",
+    "start": "next start -p $PORT",
     "build": "next build",
-    "local-start": "next start",
-    "start": "node server/index.js",
     "heroku-postbuild": "npm run build",
-    "export": "next export",
-    "deploy": "next build && next start"
+    "export": "next export"
   },
   "dependencies": {
     "@material-ui/core": "^4.10.1",
@@ -33,6 +36,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "pm2": "^4.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

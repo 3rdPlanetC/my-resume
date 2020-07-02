@@ -4,7 +4,7 @@ const LeftSideBar = () => {
         screenSticky: () => {
             function setLeftSide() {
                 let leftbar = document.querySelector(".leftbar-grid")
-                console.log(leftbar.offsetHeight, window.innerHeight, window.pageYOffset, leftbar.offsetTop)
+                // console.log(leftbar.offsetHeight, window.innerHeight, window.pageYOffset, leftbar.offsetTop)
                 if (leftbar.offsetHeight <= window.innerHeight) {
                     if (window.pageYOffset > leftbar.offsetTop && leftbar.offsetTop >= 0) {
                         leftbar.classList.add("sticky")
