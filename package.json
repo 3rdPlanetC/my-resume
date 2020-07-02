@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "pm-start": "pm2 start server/index.js -i 2",
+    "pm-start": "pm2 start server -i 2",
     "pm-stop": "pm2 delete all",
     "pm-restart": "pm2 restart all",
     "pm-monit": "pm2 monit",

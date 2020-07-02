@@ -21,6 +21,7 @@ export default function Validation(data = {
         usernameEmpty: ({
             errorText = "Please enter username in the space."
         }) => {
+            const text = errorText
             const userBlank = form.username.value === ''
             const pwNoBlank = !(form.password.value === '')
             const cpwBlank = (form.confirmPassword !== undefined ? form.confirmPassword.value === '' ? false: true :true)
@@ -29,7 +30,7 @@ export default function Validation(data = {
                 ...form,
                 username: {
                     error: bool,
-                    errorText: bool ? errorText : '',
+                    errorText: bool ? text : '',
                     value: form.username.value
                 }
             })
