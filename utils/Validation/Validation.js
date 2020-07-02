@@ -18,19 +18,19 @@ export default function Validation(data = {
         }
     }
     return {
-        usernameEmpty: ({
-            errorText = "Please enter username in the space."
+        usernameEmpty: (option = {
+            errorText: "Please enter username in the space."
         }) => {
-            const text = errorText
             const userBlank = form.username.value === ''
             const pwNoBlank = !(form.password.value === '')
             const cpwBlank = (form.confirmPassword !== undefined ? form.confirmPassword.value === '' ? false: true :true)
             const bool = userBlank && (pwNoBlank && cpwBlank)
+            const { errorText } = option
             return Validation({
                 ...form,
                 username: {
                     error: bool,
-                    errorText: bool ? text : '',
+                    errorText: bool ? errorText : '',
                     value: form.username.value
                 }
             })
