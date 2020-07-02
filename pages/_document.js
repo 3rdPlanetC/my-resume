@@ -40,7 +40,7 @@ class MyDocument extends Document {
 	}
 }
 
-MyDocument.getInitialProps = async ctx => {
+MyDocument.getServerSideProps = async ctx => {
 	// Resolution order
 	//
 	// On the server:
