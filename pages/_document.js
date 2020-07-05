@@ -14,6 +14,7 @@ class MyDocument extends Document {
 						name="viewport"
 						content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
 					/>
+					<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;300;400;500;700&display=swap" rel="stylesheet" />
 					{/* PWA primary color */}
 					{/* <meta name="theme-color" content={theme.palette.primary.main}/> */}
 					{/* <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/> */}

@@ -1,9 +1,14 @@
+// library
 import { Grid } from '@material-ui/core'
-import { Leftbar, Rightbar, Topbar } from './components'
+// components
+import { Leftbar, Rightbar, Topbar, Center } from './components'
+// style
+import { Body } from '../../style'
 
 export default props => {
+    const classes = Body()
     return (
-        <Grid className={`${true ? "theme-dark" : "theme-light"} body-wrapper index`}>
+        <Grid className={`${classes.root} body-wrapper index`}>
             <Grid container spacing={0}>
                 <Grid item container className="leftbar-grid" 
                     lg={2} 
@@ -16,15 +21,15 @@ export default props => {
                     md={7}
                 >
                     <Topbar />
-                    <Grid lg={12} item className={`${true ? "theme-dark": "theme-light"} main-wrapper`}>
+                    <Center>
                         {props.children}
-                    </Grid>
+                    </Center>
                 </Grid>
                 <Grid item container className="rightbar-grid"
                     lg={2} 
                     md={2}
                 >
-                    <Rightbar />
+                    <Rightbar setTheme={props.setTheme}/>
                 </Grid>
             </Grid> 
         </Grid> 
