@@ -6,9 +6,9 @@ import { Leftbar, Rightbar, Topbar, Center } from './components'
 import { Body } from '../../style'
 
 export default props => {
-    const classes = Body()
+    const body = Body()
     return (
-        <Grid className={`${classes.root} body-wrapper index`}>
+        <Grid className={`${body.wrapper} body-wrapper index`}>
             <Grid container spacing={0}>
                 <Grid item container className="leftbar-grid" 
                     lg={2} 
@@ -29,7 +29,10 @@ export default props => {
                     lg={2} 
                     md={2}
                 >
-                    <Rightbar setTheme={props.setTheme}/>
+                    <Rightbar 
+                        setTheme={props.setTheme}
+                        thene={props.theme}
+                    />
                 </Grid>
             </Grid> 
         </Grid> 

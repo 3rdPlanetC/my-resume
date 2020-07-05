@@ -6,9 +6,9 @@ import { Text } from '../../../../components'
 import { Leftbar } from '../../../../style'
 
 export default props => {
-    const classes = Leftbar()
+    const leftbar = Leftbar()
     return (
-        <Grid item lg={12} className={`${classes.wrapper} leftbar-wrapper`}>
+        <Grid item lg={12} className={`${leftbar.wrapper} leftbar-wrapper`}>
             <Box className={`left-box left-avatar`}>
                 <Avatar alt="Remy Sharp" src="/static/images/earth-1.jpg" className="avatar-image" />
             </Box>

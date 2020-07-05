@@ -74,7 +74,7 @@ export default ({ Component, pageProps }) => {
     return (
         <ThemeProvider theme={theme ? darkTheme : lightTheme}>
             <CssBaseline/>
-            <Component {...pageProps} setTheme={setTheme}/>
+            <Component {...pageProps} setTheme={setTheme} theme={theme}/>
         </ThemeProvider>
     )
 }

@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 export const Body = makeStyles(theme => ({
-    root: {
+    wrapper: {
         background: theme.body.background
     }
 }))
@@ -21,7 +21,7 @@ export const Center = makeStyles(theme => ({
 }))
 
 export const Rightbar = makeStyles(theme => ({
-    root: {
+    wrapper: {
         color: theme.body.color,
         background: theme.rightbar.background
     }

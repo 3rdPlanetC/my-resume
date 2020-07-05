@@ -4,9 +4,9 @@ import { Grid } from '@material-ui/core'
 import { Center } from '../../../../style'
 
 export default props => {
-    const classes = Center()
+    const center = Center()
     return (
-        <Grid lg={12} item className={`${classes.wrapper} main-wrapper`}>
+        <Grid lg={12} item className={`${center.wrapper} main-wrapper`}>
             {props.children}
         </Grid>
     )
