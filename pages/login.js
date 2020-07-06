@@ -3,11 +3,13 @@ import { useState, useRef } from 'react'
 import axios from 'axios'
 import Router from 'next/router'
 // library
-import { Avatar, Button, TextField, Link, Grid, Typography, Container } from '@material-ui/core'
+import { Avatar, Button, TextField, Grid, Typography, Container } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { makeStyles } from '@material-ui/core/styles'
 // custom
 import { Validation } from '../utils'
+// components
+import { Text } from '../components'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -138,17 +140,12 @@ export default props => {
                     >
                         Sign In
                     </Button>
-                    {resMessage ? resMessage : ''}
+                    
                     <Grid container>
                         <Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
+                            <Text ele="body1" fontClass="kanit-regular" gutterBottom>
+                                {resMessage ? resMessage : ''}
+                            </Text>
                         </Grid>
                     </Grid>
                 </form>
