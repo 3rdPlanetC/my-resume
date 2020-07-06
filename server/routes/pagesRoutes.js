@@ -1,4 +1,4 @@
-const { loginMiddleware } = require('./middleware')
+const { loginMiddleware, isLoginMiddleware } = require('./middleware')
 
 module.exports = (server, app) => {
     server.get('/', (req, res) => {
@@ -16,7 +16,7 @@ module.exports = (server, app) => {
     server.get('/dashboard', loginMiddleware, (req, res) => {
         return app.render(req, res, '/dashboard')
     })
-    server.get('/login', (req, res) => {
+    server.get('/login', loginMiddleware, (req, res) => {
         return app.render(req, res, '/login')
     })
     server.get('/signup', (req, res) => {

@@ -3,7 +3,6 @@ import { useState } from 'react'
 // library
 import { CssBaseline } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-import { orange, purple, green } from '@material-ui/core/colors'
 
 const darkTheme = createMuiTheme({
     body: {
