@@ -1,15 +1,19 @@
-import { Topbar } from '../layout/DashboardLayout/components/'
+// core
+import { Fragment } from 'react'
+// Layout
+import { DashboardLayout } from '../layout'
 
 export default () => {
     return (
-        <div>
-            <Topbar />
-            Dashboard
-        </div>
+        <Fragment>
+            <DashboardLayout>
+                Dashboard
+            </DashboardLayout>
+        </Fragment>
     )
 }
 
-export const getServerSideProps = async ctx => {
+export const getStaticProps = async ctx => {
     return {
         props: {
             

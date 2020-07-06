@@ -24,16 +24,12 @@ const darkTheme = createMuiTheme({
     topbar: {
         color: "white",
         background: "#28293d"
-    }
-
-    // palette: {
-    //     primary: {
-    //       main: purple[500],
-    //     },
-    //     secondary: {
-    //       main: green[500],
-    //     },
-    // },
+    },
+    palette: {
+        primary: {
+            main: "#28293d",
+        },
+    },
 })
 
 const lightTheme = createMuiTheme({
@@ -56,16 +52,12 @@ const lightTheme = createMuiTheme({
     topbar: {
         color: "black",
         background: "#e5e5e5"
-    }
-
-    // palette: {
-    //     primary: {
-    //       main: purple[500],
-    //     },
-    //     secondary: {
-    //       main: green[500],
-    //     },
-    // },
+    },
+    palette: {
+        primary: {
+            main: "#e5e5e5",
+        },
+    },
 })
 
 export default ({ Component, pageProps }) => {
