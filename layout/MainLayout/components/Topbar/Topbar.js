@@ -3,16 +3,13 @@ import Link from 'next/link'
 // library
 import { Grid, Box, AppBar, Toolbar, InputBase } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
-// style
-import { Topbar } from '../../../../style'
 
 import { Menu } from '../../../../static/js/collection'
 
 export default props => {
-    const topbar = Topbar()
     return (
         <Grid lg={12} item className={`navbar-grid`}>
-            <AppBar position="static" className={`${topbar.wrapper} navbar-wrapper`}>
+            <AppBar position="static" className={`navbar-wrapper`}>
                 <Grid container direction="row">
                     <Grid item lg={6} className="navbar-menu">
                         {Menu.map((item, index) => 

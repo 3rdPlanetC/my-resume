@@ -1,4 +1,4 @@
 export { default as Leftbar } from './Leftbar'
 export { default as Rightbar } from './Rightbar'
 export { default as Topbar } from './Topbar'
-export { default as Center } from './Center'
+export { default as Main } from './Main'

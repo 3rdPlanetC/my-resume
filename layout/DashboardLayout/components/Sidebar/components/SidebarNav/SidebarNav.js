@@ -20,21 +20,21 @@ const useStyles = makeStyles(theme => ({
         textTransform: 'none',
         letterSpacing: 0,
         width: '100%',
-        fontWeight: theme.typography.fontWeightMedium
+        // fontWeight: theme.typography.fontWeightMedium
     },
     icon: {
-        color: theme.palette.icon,
+        // color: theme.palette.icon,
         width: 24,
         height: 24,
         display: 'flex',
         alignItems: 'center',
-        marginRight: theme.spacing(1)
+        marginRight: "8px"
     },
     active: {
-        color: theme.palette.primary.main,
-        fontWeight: theme.typography.fontWeightMedium,
+        // color: theme.palette.primary.main,
+        // fontWeight: theme.typography.fontWeightMedium,
         '& $icon': {
-            color: theme.palette.primary.main
+            // color: theme.palette.primary.main
         }
     }
 }))

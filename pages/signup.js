@@ -16,21 +16,21 @@ import { Validation } from '../utils'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: "64px",
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
     avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
+        margin: "8px",
+        // backgroundColor: theme.palette.secondary.main,
     },
     form: {
         width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
+        marginTop: "8px",
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        margin: "24px 0 16px",
     },
     textField: {
         '&.passed fieldset': {

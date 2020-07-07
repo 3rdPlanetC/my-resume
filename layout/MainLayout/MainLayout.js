@@ -2,45 +2,44 @@
 import { Grid } from '@material-ui/core'
 // components
 import { 
-    Leftbar as LeftbarComponent, 
-    Rightbar as RightbarComponent, 
-    Topbar as TopbarComponent, 
-    Center as CenterComponent 
+    Leftbar,
+    Rightbar,
+    Topbar,
+    Main
 } from './components'
 // style
-import { Body, Leftbar as LeftbarStyle } from '../../style'
+import { LeftbarGrid, BodyWrapper, RightbarGrid, CenterGrid } from '../../style/MainLayout'
 
 export default props => {
-    const body = Body()
-    const leftbar = LeftbarStyle()
+    const { theme } = props
     return (
-        <Grid className={`${body.wrapper} body-wrapper index`}>
+        <BodyWrapper className={`body-wrapper index`} theme={theme}>
             <Grid container spacing={0}>
-                <Grid item container className={`${leftbar.grid} leftbar-grid`}
-                    lg={2} 
+                <LeftbarGrid item container className="leftbar-grid" theme={theme}
                     md={3} 
+                    lg={2} 
                 >
-                    <LeftbarComponent />
-                </Grid>
-                <Grid item className="center-grid"
+                    <Leftbar />
+                </LeftbarGrid>
+                <CenterGrid item className="center-grid" theme={theme}
                     lg={8} 
                     md={7}
                 >
-                    <TopbarComponent />
-                    <CenterComponent>
+                    <Topbar />
+                    <Main >
                         {props.children}
-                    </CenterComponent>
-                </Grid>
-                <Grid item container className="rightbar-grid"
+                    </Main>
+                </CenterGrid>
+                <RightbarGrid item container className="rightbar-grid" theme={theme}
                     lg={2} 
                     md={2}
                 >
-                    <RightbarComponent 
+                    <Rightbar
                         setTheme={props.setTheme}
                         thene={props.theme}
                     />
-                </Grid>
+                </RightbarGrid>
             </Grid> 
-        </Grid> 
+        </BodyWrapper> 
     )
 }

@@ -15,17 +15,17 @@ const useStyles = makeStyles(theme => ({
         }
     },
     root: {
-        backgroundColor: theme.palette.white,
+        // backgroundColor: theme.palette.white,
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        padding: theme.spacing(2)
+        padding: "16px"
     },
     divider: {
-        margin: theme.spacing(2, 0)
+        margin: "16px 0"
     },
     nav: {
-        marginBottom: theme.spacing(2)
+        marginBottom: "16px"
     }
 }))
 
