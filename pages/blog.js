@@ -44,7 +44,7 @@ export default props => {
             <Seo title="E3T - Homepage">
                 <script async type="module" src="/static/js/style.js" id="leftside" page="blog"/>
             </Seo>
-            <MainLayout>
+            <MainLayout {...props}>
                 <BlogPost />
             </MainLayout>
         </Fragment>
