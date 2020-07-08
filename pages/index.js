@@ -54,7 +54,7 @@ const JobPost = props => {
 export default props => {
     return (
         <Fragment>
-            <Seo title="E3T - Homepage">
+            <Seo title="E3T Homepage">
                 <script defer type="module" src="/static/js/style.js" id="leftside" page="index"/>
             </Seo>
             <MainLayout {...props} className="index">

@@ -1,5 +1,5 @@
 // core
-import { useState, useRef } from 'react'
+import { useState, useRef, Fragment } from 'react'
 import axios from 'axios'
 import Router from 'next/router'
 import styled from 'styled-components'
@@ -9,7 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 // custom
 import { Validation } from '../utils'
 // components
-import { Text } from '../components'
+import { Seo, Text } from '../components'
 
 const PaperStyled = styled(Grid)`
     margin-top: ${props => props.theme.spacing(8)}px;
@@ -104,60 +104,63 @@ export default props => {
     const errorCheck = password.error || username.error
     const blankCheck = !(username.value.length > 0 && password.value.length > 0)
     return (
-        <Container component="main" maxWidth="xs">
-            <PaperStyled theme={theme}>
-                <AvatarStyled theme={theme}>
-                    <LockOutlinedIcon style={{color: 'white'}}/>
-                </AvatarStyled>
-                <Typography component="h1" variant="h5">
-                    Sign in
-                </Typography>
-                <FormStyled ref={submitForm} onSubmit={handleSubmit}>
-                    <TextFieldStyled
-                        error={username.error || false} helperText={username.errorText || ""}
-                        variant="standard" margin="normal"
-                        required fullWidth
-                        id="username" label="Username"
-                        name="username"
-                        autoFocus onChange={handleChange}
-                        className={`${username.error || !username.value.length > 0 ? '' : 'passed'}`}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                    <TextFieldStyled
-                        error={password.error} helperText={password.errorText || ""}
-                        variant="standard"  
-                        margin="normal" required
-                        fullWidth name="password"
-                        label="Password" type="password"
-                        id="password"
-                        onChange={handleChange}
-                        className={`${password.error || !password.value.length > 0 ? '' : 'passed'}`}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                    <ButtonStyled
-                        disabled={errorCheck || blankCheck}
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                    >
-                        Sign In
-                    </ButtonStyled>
-                    
-                    <Grid container>
-                        <Grid item xs>
-                            <Text ele="body1" fontClass="kanit-regular" gutterBottom>
-                                {resMessage ? resMessage : ''}
-                            </Text>
+        <Fragment>
+            <Seo title="E3T Login"></Seo>
+            <Container component="main" maxWidth="xs">
+                <PaperStyled theme={theme}>
+                    <AvatarStyled theme={theme}>
+                        <LockOutlinedIcon style={{color: 'white'}}/>
+                    </AvatarStyled>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <FormStyled ref={submitForm} onSubmit={handleSubmit}>
+                        <TextFieldStyled
+                            error={username.error || false} helperText={username.errorText || ""}
+                            variant="standard" margin="normal"
+                            required fullWidth
+                            id="username" label="Username"
+                            name="username"
+                            autoFocus onChange={handleChange}
+                            className={`${username.error || !username.value.length > 0 ? '' : 'passed'}`}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                        <TextFieldStyled
+                            error={password.error} helperText={password.errorText || ""}
+                            variant="standard"  
+                            margin="normal" required
+                            fullWidth name="password"
+                            label="Password" type="password"
+                            id="password"
+                            onChange={handleChange}
+                            className={`${password.error || !password.value.length > 0 ? '' : 'passed'}`}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                        <ButtonStyled
+                            disabled={errorCheck || blankCheck}
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                        >
+                            Sign In
+                        </ButtonStyled>
+                        
+                        <Grid container>
+                            <Grid item xs>
+                                <Text ele="body1" fontClass="kanit-regular" gutterBottom>
+                                    {resMessage ? resMessage : ''}
+                                </Text>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </FormStyled>
-            </PaperStyled>
-        </Container>
+                    </FormStyled>
+                </PaperStyled>
+            </Container>
+        </Fragment>
     )
 }
 
