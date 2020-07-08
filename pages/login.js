@@ -2,47 +2,50 @@
 import { useState, useRef } from 'react'
 import axios from 'axios'
 import Router from 'next/router'
+import styled from 'styled-components'
 // library
 import { Avatar, Button, TextField, Grid, Typography, Container } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import { makeStyles } from '@material-ui/core/styles'
 // custom
 import { Validation } from '../utils'
 // components
 import { Text } from '../components'
 
-const useStyles = makeStyles(theme => ({
-    paper: {
-        marginTop: "64px",
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: "8px",
-        // backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%',
-        marginTop: "8px",
-        marginBottom: "8px"
-    },
-    submit: {
-        margin: "24px 0 16px",
-    },
-    textField: {
-        '&.passed fieldset': {
-            borderColor: 'green',
-            borderWidth: "2px"
-        },
-        '&.passed > div:hover fieldset': {
-            borderColor: 'green'
-        }
-    }
-}))
+const PaperStyled = styled(Grid)`
+    margin-top: ${props => props.theme.spacing(8)}px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
 
+const AvatarStyled = styled(Avatar)`
+    margin: ${props => props.theme.spacing(1)}px;
+    background-color: ${props => props.theme.grid.background}
+`
+
+const ButtonStyled = styled(Button)`
+    margin: 24px 0 16px;
+`
+
+const FormStyled = styled.form`
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+`
+
+const TextFieldStyled = styled(TextField)`
+    &.passed fieldset {
+        border-color: green;
+        border-width: 2px;
+    }
+    &.passed > div:hover fieldset {
+        border-color: green;
+    }
+`
 
 export default props => {
+    // props
+    const { theme } = props
     // useRef
     const submitForm = useRef(null)
 
@@ -97,30 +100,29 @@ export default props => {
         }
     }
 
-    const classes = useStyles()
     const { username, password } = form
     const errorCheck = password.error || username.error
     const blankCheck = !(username.value.length > 0 && password.value.length > 0)
     return (
         <Container component="main" maxWidth="xs">
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
+            <PaperStyled theme={theme}>
+                <AvatarStyled theme={theme}>
+                    <LockOutlinedIcon style={{color: 'white'}}/>
+                </AvatarStyled>
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form ref={submitForm} className={classes.form} noValidate onSubmit={handleSubmit}>
-                    <TextField
+                <FormStyled ref={submitForm} noValidate onSubmit={handleSubmit}>
+                    <TextFieldStyled
                         error={username.error || false} helperText={username.errorText || ""}
                         variant="outlined" margin="normal"
                         required fullWidth
                         id="username" label="Username"
                         name="username"
                         autoFocus onChange={handleChange}
-                        className={`${classes.textField} ${username.error || !username.value.length > 0 ? '' : 'passed'}`}
+                        className={`${username.error || !username.value.length > 0 ? '' : 'passed'}`}
                     />
-                    <TextField
+                    <TextFieldStyled
                         error={password.error} helperText={password.errorText || ""}
                         variant="outlined"  
                         margin="normal" required
@@ -128,18 +130,17 @@ export default props => {
                         label="Password" type="password"
                         id="password"
                         onChange={handleChange}
-                        className={`${classes.textField} ${password.error || !password.value.length > 0 ? '' : 'passed'}`}
+                        className={`${password.error || !password.value.length > 0 ? '' : 'passed'}`}
                     />
-                    <Button
+                    <ButtonStyled
                         disabled={errorCheck || blankCheck}
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
-                        className={classes.submit}
                     >
                         Sign In
-                    </Button>
+                    </ButtonStyled>
                     
                     <Grid container>
                         <Grid item xs>
@@ -148,8 +149,8 @@ export default props => {
                             </Text>
                         </Grid>
                     </Grid>
-                </form>
-            </div>
+                </FormStyled>
+            </PaperStyled>
         </Container>
     )
 }

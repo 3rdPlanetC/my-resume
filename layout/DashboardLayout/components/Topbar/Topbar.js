@@ -30,10 +30,11 @@ export default props => {
         <AppBar>
             <Toolbar>
                 <Link href="/admin">
-                    <img
+                    {/* <img
                         alt="Logo"
                         src="/static/images/logo--white.svg"
-                    />
+                    /> */}
+                    <a>My Dashboard</a>
                 </Link>
                 <div style={{flexGrow: "1"}} />
                 <Hidden mdDown>

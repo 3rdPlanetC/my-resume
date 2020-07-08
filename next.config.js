@@ -19,7 +19,11 @@ module.exports = withFonts(withLess({
         config.module.rules.push({
             test: /\.css$/i,
 
-        })
+        }),
+        {
+            test: /\.svg$/,
+            use: ['@svgr/webpack', 'url-loader'],
+        }
         return config
     }
 }))
