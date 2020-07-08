@@ -59,14 +59,14 @@ export default props => {
             <Seo title="E3T - Homepage">
                 <script async type="module" src="/static/js/style.js" id="leftside" page="index"/>
             </Seo>
-            <MainLayout {...props}>
+            <MainLayout {...props} className="index">
                 <JobPost />
             </MainLayout>
         </Fragment>
     )
 }
 
-export const getStaticProps = props => {
+export const getStaticProps = ctx => {
     return {
         props: {
 

@@ -1,4 +1,4 @@
-const { loginMiddleware, isLoginMiddleware } = require('./middleware')
+const { loginMiddleware } = require('./middleware')
 
 module.exports = (server, app) => {
     server.get('/', (req, res) => {
@@ -13,13 +13,22 @@ module.exports = (server, app) => {
     server.get('/blog/:id', (req, res) => {
         return app.render(req, res, '/blog/[id]')
     })
-    server.get('/dashboard', loginMiddleware, (req, res) => {
-        return app.render(req, res, '/dashboard')
-    })
     server.get('/login', loginMiddleware, (req, res) => {
         return app.render(req, res, '/login')
     })
     server.get('/signup', (req, res) => {
         return app.render(req, res, '/signup')
+    })
+    server.get('/admin', loginMiddleware, (req, res) => {
+        return app.render(req, res, '/admin')
+    })
+    server.get('/admin/blog', loginMiddleware, (req, res) => {
+        return app.render(req, res, '/admin/blog')
+    })
+    server.get('/admin/project', loginMiddleware, (req, res) => {
+        return app.render(req, res, '/admin/project')
+    })
+    server.get('/admin/account', loginMiddleware, (req, res) => {
+        return app.render(req, res, '/admin/account')
     })
 }

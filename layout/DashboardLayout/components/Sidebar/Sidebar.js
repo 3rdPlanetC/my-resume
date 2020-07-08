@@ -1,74 +1,47 @@
-import { makeStyles } from '@material-ui/styles'
+// library
 import { Drawer } from '@material-ui/core'
-import DashboardIcon from '@material-ui/icons/Dashboard'
-import PeopleIcon from '@material-ui/icons/People'
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
-
+import AssignmentIcon from '@material-ui/icons/Assignment'
+import DescriptionIcon from '@material-ui/icons/Description'
+import AccountBoxIcon from '@material-ui/icons/AccountBox'
+// components
 import { SidebarNav } from './components'
 
-const useStyles = makeStyles(theme => ({
-    drawer: {
-        width: 240,
-        [theme.breakpoints.up('lg')]: {
-        marginTop: 64,
-        height: 'calc(100% - 64px)'
-        }
-    },
-    root: {
-        // backgroundColor: theme.palette.white,
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-        padding: "16px"
-    },
-    divider: {
-        margin: "16px 0"
-    },
-    nav: {
-        marginBottom: "16px"
-    }
-}))
-
 export default props => {
-    const { open, variant, onClose, className, ...rest } = props
-
-    const classes = useStyles()
+    // props
+    const { open, variant, onClose } = props
 
     const pages = [
         {
-            title: 'Dashboard',
-            href: '/dashboard',
-            icon: <DashboardIcon />
+            title: 'Blog',
+            href: '/admin/blog',
+            icon: <AssignmentIcon />
         },
         {
-            title: 'Users',
-            href: '/users',
-            icon: <PeopleIcon />
+            title: 'Project',
+            href: '/admin/project',
+            icon: <DescriptionIcon />
         },
         {
-            title: 'Products',
-            href: '/products',
-            icon: <ShoppingBasketIcon />
+            title: 'Account',
+            href: '/admin/account',
+            icon: <AccountBoxIcon />
         },
     ]
 
     return (
         <Drawer
             anchor="left"
-            classes={{ paper: classes.drawer }}
+            classes={{ 
+                paper: "sidebar-drawer"
+            }}
             onClose={onClose}
             open={open}
             variant={variant}
         >
-            <div
-                {...rest}
-                className={classes.root}
-            >
-                <SidebarNav
-                    className={classes.nav}
-                    pages={pages}
-                />
-            </div>
+            <SidebarNav
+                className={`sidebar-nav`}
+                pages={pages}
+            />
         </Drawer>
     )
 }

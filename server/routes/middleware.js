@@ -1,18 +1,15 @@
 exports.loginMiddleware = (req, res, next) => {
-    switch (req.url) {
-        case '/login':
-            if (req.user) {
-                return res.redirect('/dashboard')
-            } else {
-                return next()
-            }
-        case '/dashboard':
-            if (req.user) {
-                return next()
-            } else {
-                return res.redirect('/login')
-            }
-        default:
+    if (req.url.includes('/login')) {
+        if (req.user) {
+            return res.redirect('/admin')
+        } else {
             return next()
-    }
+        }
+    } else {
+        if (req.user) {
+            return next()
+        } else {
+            return res.redirect('/login')
+        }
+    }    
 }

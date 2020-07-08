@@ -90,7 +90,7 @@ export default props => {
                 })
                 const { message } = isLogin.data
                 setResMessage(message)
-                Router.push('/dashboard')
+                Router.push('/admin')
             }
         } catch (error) {
             console.log(error)

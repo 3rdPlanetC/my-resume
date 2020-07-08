@@ -11,9 +11,9 @@ import {
 import { LeftbarGrid, BodyWrapper, RightbarGrid, CenterGrid } from '../../style/MainLayout'
 
 export default props => {
-    const { theme } = props
+    const { theme, className } = props
     return (
-        <BodyWrapper className={`body-wrapper index`} theme={theme}>
+        <BodyWrapper className={`body-wrapper ${className}`} theme={theme}>
             <Grid container spacing={0}>
                 <LeftbarGrid item container className="leftbar-grid" theme={theme}
                     md={3} 
