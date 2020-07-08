@@ -6,8 +6,6 @@ import { Skeleton } from '@material-ui/lab'
 import { MainLayout } from '../layout'
 // Component
 import { Seo, Text } from '../components'
-// css, js config
-import "../static/less/pages/blog.less"
 
 const BlogPost = props => {
     return (

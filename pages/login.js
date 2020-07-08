@@ -112,25 +112,31 @@ export default props => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <FormStyled ref={submitForm} noValidate onSubmit={handleSubmit}>
+                <FormStyled ref={submitForm} onSubmit={handleSubmit}>
                     <TextFieldStyled
                         error={username.error || false} helperText={username.errorText || ""}
-                        variant="outlined" margin="normal"
+                        variant="standard" margin="normal"
                         required fullWidth
                         id="username" label="Username"
                         name="username"
                         autoFocus onChange={handleChange}
                         className={`${username.error || !username.value.length > 0 ? '' : 'passed'}`}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
                     <TextFieldStyled
                         error={password.error} helperText={password.errorText || ""}
-                        variant="outlined"  
+                        variant="standard"  
                         margin="normal" required
                         fullWidth name="password"
                         label="Password" type="password"
                         id="password"
                         onChange={handleChange}
                         className={`${password.error || !password.value.length > 0 ? '' : 'passed'}`}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
                     <ButtonStyled
                         disabled={errorCheck || blankCheck}

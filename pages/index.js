@@ -7,8 +7,6 @@ import { MainLayout } from '../layout'
 // Component
 import { Seo, Text } from '../components'
 import ImageContainer from '../components/Image/Image'
-// css, js config
-import "../static/less/pages/index.less"
 
 const JobImage = props => {
     const { index } = props
@@ -57,7 +55,7 @@ export default props => {
     return (
         <Fragment>
             <Seo title="E3T - Homepage">
-                <script async type="module" src="/static/js/style.js" id="leftside" page="index"/>
+                <script defer type="module" src="/static/js/style.js" id="leftside" page="index"/>
             </Seo>
             <MainLayout {...props} className="index">
                 <JobPost />

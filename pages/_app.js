@@ -17,6 +17,13 @@ const darkTheme = createMuiTheme({
             main: "#28293d",
         },
     },
+    overrides: {
+        MuiAvatar: {
+            colorDefault: {
+                backgroundColor: "#28293d"
+            },
+        },
+    },
 })
 
 const lightTheme = createMuiTheme({

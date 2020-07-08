@@ -18,3 +18,37 @@ export const device = {
     desktop: `(min-width: ${size.desktop})`,
     desktopL: `(min-width: ${size.desktop})`
 }
+
+export const config = `
+    * {
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    html { font-size: 16px; }
+
+    .kanit-bold {
+        font-family: 'Kanit', 'Sans-Serif';
+        font-weight: 700;
+    }
+    
+    .kanit-medium {
+        font-family: 'Kanit', 'Sans-Serif';
+        font-weight: 500;
+    }
+    
+    .kanit-regular {
+        font-family: 'Kanit', 'Sans-Serif';
+        font-weight: 400;
+    }
+    
+    .kanit-light {
+        font-family: 'Kanit', 'Sans-Serif';
+        font-weight: 300;
+    }
+    
+    .kanit-thin {
+        font-family: 'Kanit', 'Sans-Serif';
+        font-weight: 100;
+    }
+`

@@ -1,8 +1,11 @@
 // library
 import { Grid } from '@material-ui/core'
 import styled from 'styled-components'
+// components
+import { config } from '../../config'
 
 export default styled(Grid)`
+    ${config}
     background-color: ${props => props.theme.body.background};
     color: ${props => props.theme.body.color};
     @media screen and (min-width: 960px) {

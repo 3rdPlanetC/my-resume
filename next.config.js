@@ -1,6 +1,4 @@
-const withLess = require('@zeit/next-less')
-const withFonts = require('next-fonts')
-module.exports = withFonts(withLess({
+module.exports = {
     cssLoaderOptions: {
         importLoaders: 1,
         localIdentName: "[local]___[hash:base64:5]",
@@ -26,4 +24,4 @@ module.exports = withFonts(withLess({
         }
         return config
     }
-}))
+}

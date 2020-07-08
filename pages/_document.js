@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/styles'
+import { ServerStyleSheet } from 'styled-components';
 // import theme from '../src/theme';
 
 class MyDocument extends Document {
@@ -30,7 +31,7 @@ class MyDocument extends Document {
 					<meta property="og:title" content="Allied together, our complaints are powerful"/>
 					<meta property="og:description" content="Make your complaint about any company visible to the entire world on WeAlly.org. We can finally look at the problems companies have with their customers, complain on WeAlly and join the responsible citizens"/>
 					<meta property="og:image" content={'https://weally.org/static/images/fb_splash.jpg'}/> */}
-
+					{this.props.styleTags}
 				</Head>
 				<body>
 					<Main/>
@@ -41,7 +42,7 @@ class MyDocument extends Document {
 	}
 }
 
-MyDocument.getServerSideProps = async ctx => {
+MyDocument.getInitialProps = async ctx => {
 	// Resolution order
 	//
 	// On the server:
@@ -66,22 +67,31 @@ MyDocument.getServerSideProps = async ctx => {
 
 	// Render app and page and get the context of the page with collected side effects.
 	const sheets = new ServerStyleSheets()
+	const sheet = new ServerStyleSheet()
 	const originalRenderPage = ctx.renderPage
 
-	ctx.renderPage = () => originalRenderPage({
-		enhanceApp: App => props => sheets.collect(<App {...props} />),
-	})
+	const page = ctx.renderPage((App) => (props) =>
+      sheet.collectStyles(<App {...props} />),
+	)
+	
+	const styleTags = sheet.getStyleElement()
 
-	const initialProps = await Document.getInitialProps(ctx)
+	// ctx.renderPage = () => originalRenderPage({
+	// 	enhanceApp: App => props => sheets.collect(<App {...props} />),
+	// })
+
+	// const initialProps = await Document.getInitialProps(ctx)
 
 	return {
-		...initialProps, // Styles fragment is rendered after the app and page rendering finish.
-		styles: (
-			<Fragment>
-				{initialProps.styles}
-				{sheets.getStyleElement()}
-			</Fragment>
-		),
+		//...initialProps, // Styles fragment is rendered after the app and page rendering finish.
+		...page,
+		styleTags
+		// styles: (
+		// 	<Fragment>
+		// 		{initialProps.styles}
+		// 		{sheets.getStyleElement()}
+		// 	</Fragment>
+		// ),
 	}
 }
 
