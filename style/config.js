@@ -52,3 +52,33 @@ export const config = `
         font-weight: 100;
     }
 `
+
+export const indigo = {
+    bodyBackground: "#1c1c27",
+    bodyColor: "white",
+    gridBackground: "#28293d"
+}
+
+export const white = {
+    bodyBackground: "#e9ebee",
+    bodyColor: "#1d2129",
+    gridBackground: "#e0e0e0"
+}
+
+export const amber = {
+    bodyBackground: "#ff6f00",
+    bodyColor: "white",
+    gridBackground: "#ff8f00"
+}
+
+export const brown = {
+    bodyBackground: "#3e2723",
+    bodyColor: "white",
+    gridBackground: "#4e342e"
+}
+
+export const lightGreen = {
+    bodyBackground: "#558b2f",
+    bodyColor: "white",
+    gridBackground: "#7cb342"
+}

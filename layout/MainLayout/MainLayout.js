@@ -1,12 +1,7 @@
 // library
 import { Grid } from '@material-ui/core'
 // components
-import { 
-    Leftbar,
-    Rightbar,
-    Topbar,
-    Main
-} from './components'
+import {  Leftbar, Rightbar, Topbar, Main } from './components'
 // style
 import { LeftbarGrid, BodyWrapper, RightbarGrid, CenterGrid } from '../../style/MainLayout'
 
@@ -16,14 +11,14 @@ export default props => {
         <BodyWrapper className={`body-wrapper ${className}`} theme={theme}>
             <Grid container spacing={0}>
                 <LeftbarGrid item container className="leftbar-grid" theme={theme}
-                    md={3} 
-                    lg={2} 
+                    md={3}
+                    lg={3}
                 >
                     <Leftbar />
                 </LeftbarGrid>
                 <CenterGrid item className="center-grid" theme={theme}
-                    lg={8} 
-                    md={7}
+                    md={6}
+                    lg={6}
                 >
                     <Topbar />
                     <Main >
@@ -31,15 +26,15 @@ export default props => {
                     </Main>
                 </CenterGrid>
                 <RightbarGrid item container className="rightbar-grid" theme={theme}
-                    lg={2} 
-                    md={2}
+                    md={3}
+                    lg={3} 
                 >
                     <Rightbar
-                        setTheme={props.setTheme}
+                        randomTheme={props.randomTheme}
                         thene={props.theme}
                     />
                 </RightbarGrid>
-            </Grid> 
+            </Grid>
         </BodyWrapper> 
     )
 }

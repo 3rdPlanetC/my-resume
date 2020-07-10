@@ -1,18 +1,26 @@
+// core
+import { Fragment } from 'react'
 // library
-import { Grid } from '@material-ui/core'
+import { Grid, Paper } from '@material-ui/core'
 
 export default props => {
+    // props
+    const { randomTheme } = props
     // functions
     const handleClick = ev => {
         ev.preventDefault()
-        props.setTheme(prev => !prev)
+        randomTheme()
     }
     return (
-        <Grid item lg={12} container className={`.rightbar-wrapper`}>
-            <p>RightSideBar</p>
-            <button
-                onClick={handleClick}
-            >change theme</button>
-        </Grid>
+        <Fragment>
+            <Grid item lg={6}>
+                <Paper className={`rightbar-wrapper`} elevation={3}>
+                    <button
+                        onClick={handleClick}
+                    >change theme</button>
+                </Paper>
+            </Grid>
+            <Grid item lg={6} xl={6} />
+        </Fragment>
     )
 }

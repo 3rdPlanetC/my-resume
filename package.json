@@ -8,7 +8,7 @@
     "pm-restart": "pm2 restart all",
     "pm-monit": "pm2 monit",
     "server": "node server",
-    "start": "node server",
+    "start": "next start -p $PORT",
     "build": "next build",
     "heroku-postbuild": "npm run build",
     "export": "next export",

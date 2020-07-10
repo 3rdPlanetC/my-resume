@@ -24,7 +24,7 @@ const JobPost = props => {
     return (
         <Grid container direction="row">
             {[1,2,3,4,5,6,7,8].map((item, index) =>
-                <Grid item xl={3} lg={3} md={4} sm={6} className="box-wrapper" key={index}>
+                <Grid item xl={4} lg={4} md={4} sm={6} className="box-wrapper" key={index}>
                     <Box className="box-image box-child">
                         <JobImage 
                             index={index}
@@ -54,9 +54,7 @@ const JobPost = props => {
 export default props => {
     return (
         <Fragment>
-            <Seo title="E3T Homepage">
-                <script defer type="module" src="/static/js/style.js" id="leftside" page="index"/>
-            </Seo>
+            <Seo title="E3T Homepage" />
             <MainLayout {...props} className="index">
                 <JobPost />
             </MainLayout>

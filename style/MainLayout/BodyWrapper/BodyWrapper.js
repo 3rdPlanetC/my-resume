@@ -10,30 +10,30 @@ export default styled(Grid)`
     color: ${props => props.theme.body.color};
     @media screen and (min-width: 960px) {
         &.index.body-wrapper {
-            .center-grid {
-                margin-left: calc((3/12) * 100%) !important;
-                margin-right: calc((2/12) * 100%) !important;
-            }
+            // .center-grid {
+            //     margin-left: calc((2/12) * 100%) !important;
+            //     margin-right: calc((2/12) * 100%) !important;
+            // }
         }
         &.blog.body-wrapper {
-            .center-grid {
-                margin-left: ~"calc((3/12) * 100%)" !important;
-                margin-right: ~"calc((2/12) * 100%)" !important;
-            }
+            // .center-grid {
+            //     margin-left: ~"calc((2/12) * 100%)" !important;
+            //     margin-right: ~"calc((2/12) * 100%)" !important;
+            // }
         }
     }
     @media screen and (min-width: 1280px) {
         &.index.body-wrapper {
             .center-grid {
-                margin-left: calc((2/12) * 100%) !important;
-                margin-right: calc((2/12) * 100%) !important;
+                margin-left: calc((3/12) * 100%) !important;
+                margin-right: calc((3/12) * 100%) !important;
             }
         }
         &.blog.body-wrapper {
-            .center-grid {
-                margin-left: ~"calc((2/12) * 100%)" !important;
-                margin-right: ~"calc((2/12) * 100%)" !important;
-            }
+            // .center-grid {
+            //     margin-left: ~"calc((2/12) * 100%)" !important;
+            //     margin-right: ~"calc((2/12) * 100%)" !important;
+            // }
         }
     }
 `
