@@ -8,7 +8,6 @@ export default props => (`
             .box-child {
                 padding: 0.25rem 0.5rem;
                 &.box-image {
-                    height: 250px;
                     width: auto;
                     & > img {
                         height: 100%;
@@ -20,8 +19,19 @@ export default props => (`
                        margin: 0.35rem auto; 
                     }
                 }
-                &.box-shortdesc {
-    
+                &.box-tools {
+                    ul {
+                        list-style: none;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        padding: 0;
+                        margin-bottom: 0.5rem;
+                        li {
+                            font-size: 1rem;
+                            display: flex;
+                        }
+                    }
                 }
             }
         }

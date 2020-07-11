@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Grid, Avatar, Box, Paper, List, ListItem } from '@material-ui/core'
 // static
 import { LeftSidebar } from '../../../../static/js/'
+import { Menu } from '../../../../static/js/collection'
 
 export default props => {
     // useEffect
@@ -23,31 +24,13 @@ export default props => {
                 <Paper className={`leftbar-wrapper`} elevation={3}>
                     <Box className="leftbar-menu">
                         <List component="nav">
-                            <Link href="/">
-                                <ListItem button>
-                                    <a>HOME</a>
-                                </ListItem>
-                            </Link>
-                            <Link href="/projects">
-                                <ListItem button>
-                                    <a>PROJECT</a>
-                                </ListItem>
-                            </Link>
-                            <Link href="/about">
-                                <ListItem button>
-                                    <a>ABOUT ME</a>
-                                </ListItem>
-                            </Link>
-                            <Link href="/skills">
-                                <ListItem button>
-                                    <a>SKILLS</a>
-                                </ListItem>
-                            </Link>
-                            <Link href="/contact">
-                                <ListItem button>
-                                    <a>CONTACT</a>
-                                </ListItem>
-                            </Link>
+                            {Menu.map(item => 
+                                <Link href={item.href} key={item.name}>
+                                    <ListItem button>
+                                        <a>{item.name}</a>
+                                    </ListItem>
+                                </Link>
+                            )}
                         </List>
                     </Box>
                 </Paper>

@@ -1,16 +1,24 @@
 export const Menu = [
     {
-        name: 'Home',
+        name: 'HOME',
         href: '/'
     },
     {
-        name: 'Blog',
-        href: '/blog'
+        name: 'PROJECTS',
+        href: '/projects'
     },
-    // {
-    //     name: 'Post Test',
-    //     href: '/post?slug=helloWorld'
-    // }
+    {
+        name: 'ABOUT ME',
+        href: '/about'
+    },
+    {
+        name: 'SKILLS',
+        href: '/skills'
+    },
+    {
+        name: 'CONTACT',
+        href: '/contact'
+    }
 ]
 
 export const LeftTitle = {

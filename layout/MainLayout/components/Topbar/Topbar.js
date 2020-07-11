@@ -12,7 +12,7 @@ export default props => {
             <AppBar position="static" className={`navbar-wrapper`}>
                 <Grid container direction="row">
                     <Grid item lg={6} className="navbar-menu">
-                        {Menu.map((item, index) => 
+                        {/* {Menu.map((item, index) => 
                             <Box key={index}>
                                 <Link href={item.href} as={item.href}>
                                     <a className="kanit-medium">
@@ -20,7 +20,7 @@ export default props => {
                                     </a>
                                 </Link>
                             </Box>
-                        )}
+                        )} */}
                     </Grid>
                     <Grid item lg={6} className="navbar-search">
                         <Toolbar>
