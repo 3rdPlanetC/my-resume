@@ -13,7 +13,7 @@ module.exports = (server, app) => {
     // server.get('/blog/:id', (req, res) => {
     //     return app.render(req, res, '/blog/[id]')
     // })
-    server.get('/login', loginMiddleware, (req, res) => {
+    server.get('/login', (req, res) => {
         return app.render(req, res, '/login')
     })
     server.get('/signup', (req, res) => {

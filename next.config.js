@@ -3,6 +3,8 @@ module.exports = {
         importLoaders: 1,
         localIdentName: "[local]___[hash:base64:5]",
     },
+    target: 'server',
+    externalResolver: true,
     webpack: config => {
         config.module.rules.push({
             test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
@@ -23,5 +25,5 @@ module.exports = {
             use: ['@svgr/webpack', 'url-loader'],
         }
         return config
-    }
+    },
 }

@@ -81,19 +81,21 @@ export default props => {
                 password: password.value,
             })
             const { status, message, token } = res.data
+            console.log(res.data)
             if (!status) {
                 setForm(props.form)
                 submitForm.current.reset()
                 setResMessage(message)
             } else {
-                const isLogin = await axios.get('/api/auth/redirect', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                const { message } = isLogin.data
-                setResMessage(message)
-                Router.push('/admin')
+                
+                // const isLogin = await axios.get('/api/auth/redirect', {
+                //     headers: {
+                //         Authorization: `Bearer ${token}`
+                //     }
+                // })
+                // const { message } = isLogin.data
+                // setResMessage(message)
+                // Router.push('/admin')
             }
         } catch (error) {
             console.log(error)
@@ -164,7 +166,8 @@ export default props => {
     )
 }
 
-export const getStaticProps = async ctx => {
+export const getServerSideProps = async ctx => {
+    console.log(ctx)
     return {
         props: {
             form: {
