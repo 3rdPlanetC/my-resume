@@ -1,13 +1,18 @@
 // core
 import { useState, useRef, Fragment } from 'react'
 import axios from 'axios'
+import { setCookie } from 'nookies'
 import Router from 'next/router'
 import styled from 'styled-components'
+import cookies from 'next-cookies'
+import Cryptr from 'cryptr'
+import jwt from 'jsonwebtoken'
 // library
 import { Avatar, Button, TextField, Grid, Typography, Container } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 // custom
 import { Validation } from '../utils'
+import keys from '../config'
 // components
 import { Seo, Text } from '../components'
 
@@ -45,6 +50,7 @@ const TextFieldStyled = styled(TextField)`
 
 export default props => {
     // props
+    console.log(props)
     const { theme } = props
     // useRef
     const submitForm = useRef(null)
@@ -80,22 +86,18 @@ export default props => {
                 username: username.value,
                 password: password.value,
             })
-            const { status, message, token } = res.data
-            console.log(res.data)
+            const { status, message, user, token } = res.data
             if (!status) {
                 setResMessage(message)
                 setForm(props.form)
                 submitForm.current.reset()
             } else {
                 setResMessage(message)
-                Router.push('/')
-                // const isLogin = await axios.get('/api/auth/redirect', {
-                //     headers: {
-                //         Authorization: `Bearer ${token}`
-                //     }
-                // })
-                // const { message } = isLogin.data
-                // setResMessage(message)
+                setCookie(null, 'token', token, {
+                    maxAge: 60*60*24*30,
+                    path: '/'
+                })
+                Router.push('/admin')
             }
         } catch (error) {
             console.log(error)
@@ -168,21 +170,49 @@ export default props => {
 
 export const getServerSideProps = async ctx => {
     const { req, res } = ctx
-    console.log(req)
-    return {
-        props: {
-            form: {
-                username: {
-                    error: false,
-                    errorText: "",
-                    value: ""
-                },
-                password: {
-                    error: false,
-                    errorText: "",
-                    value: ""
+    if (cookies(ctx).token) {
+        const cryptr = new Cryptr(keys.tokenSecret)
+        const token = cryptr.decrypt(cookies(ctx).token)
+        try {
+            const userData = jwt.verify(token, keys.tokenSecret)
+            return {
+                props: {
+                    form: {
+                        username: {
+                            error: false,
+                            errorText: "",
+                            value: ""
+                        },
+                        password: {
+                            error: false,
+                            errorText: "",
+                            value: ""
+                        },
+                    },
+                    token: userData
                 },
             }
-        },
+        } catch(err) {
+            res.status(401).send({
+                message: 'Authorization is not valid.'
+            })
+        }
+    } else {
+        return {
+            props: {
+                form: {
+                    username: {
+                        error: false,
+                        errorText: "",
+                        value: ""
+                    },
+                    password: {
+                        error: false,
+                        errorText: "",
+                        value: ""
+                    },
+                },
+            },
+        }
     }
 }

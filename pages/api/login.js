@@ -98,18 +98,20 @@
 //     })(req, res, next)
 // })
 
+import cookie from 'cookie'
 import nextConnect from 'next-connect'
 import jwt from 'jsonwebtoken'
 import { mongoose } from '../../middlewares'
 import { User } from '../../models'
 import keys from '../../config'
 import bcrypt from 'bcrypt'
+import Cryptr from 'cryptr'
 
 export default nextConnect()
 .post(async (req, res) => {
-    // database connecting
     mongoose.connect()
     const { username, password} = req.body
+    const cryptr = new Cryptr(keys.tokenSecret)
     const user = await User.findOne({username: username})
     if (!user) {
         res.status(200).send({
@@ -120,15 +122,20 @@ export default nextConnect()
     } else {
         bcrypt.compare(password, user.password, (err, matchPassword) => {
             if (matchPassword) {
-                const token = jwt.sign({
+                const accessToken = jwt.sign({
                     payload: user.toJSON(),
                     iat: new Date().getTime()
                 }, keys.tokenSecret, { expiresIn: 3600})
-                res.setHeader('Set-Cookie', `access_token=${token}; HttpOnly; maxAge: 1000*60*60; `)
+                const refreshToken = cryptr.encrypt(accessToken)
+                res.setHeader('Set-Cookie', cookie.serialize('access_token', `Bearer ${accessToken}`, {
+                    httpOnly: true,
+                    maxAge: 60 * 60,
+                }))
                 res.status(200).send({
                     status: true,
                     message: 'Login Success.',
-                    token: token
+                    user: user,
+                    token: refreshToken
                 })
                 mongoose.disconnect()
             } else {
