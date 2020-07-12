@@ -168,6 +168,7 @@ export default props => {
 
 export const getServerSideProps = async ctx => {
     const { req, res } = ctx
+    console.log(req)
     return {
         props: {
             form: {
