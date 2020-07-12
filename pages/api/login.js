@@ -99,52 +99,45 @@
 // })
 
 import nextConnect from 'next-connect'
-import cookieSession from 'cookie-session'
 import jwt from 'jsonwebtoken'
 import { mongoose } from '../../middlewares'
 import { User } from '../../models'
 import keys from '../../config'
 import bcrypt from 'bcrypt'
 
-const handle = nextConnect()
-    .use(cookieSession({
-        maxAge: 1000*60*60,
-        keys: [keys.cookieKeys]
-    }))
-    .post(async (req, res) => {
-        // database connecting
-        mongoose.connect()
-        const { username, password} = req.body
-        const user = await User.findOne({username: username})
-        if (!user) {
-            res.status(200).send({
-                status: false,
-                message: 'Incorrect username or password.'
-            })
-            await mongoose.disconnect()
-        } else {
-            bcrypt.compare(password, user.password, (err, matchPassword) => {
-                if (matchPassword) {
-                    const token = jwt.sign({
-                        payload: user.toJSON(),
-                        iat: new Date().getTime()
-                    }, keys.tokenSecret, { expiresIn: 3600})
-                    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; maxAge: 1000*60*60; `)
-                    res.status(200).send({
-                        status: false,
-                        message: 'Login Success.',
-                        token: token
-                    })
-                    mongoose.disconnect()
-                } else {
-                    res.status(200).send({
-                        status: false,
-                        message: 'Incorrect password.'
-                    })
-                    mongoose.disconnect()
-                }
-            })
-        }
-    })
-
-export default handle
+export default nextConnect()
+.post(async (req, res) => {
+    // database connecting
+    mongoose.connect()
+    const { username, password} = req.body
+    const user = await User.findOne({username: username})
+    if (!user) {
+        res.status(200).send({
+            status: false,
+            message: 'Incorrect username or password.'
+        })
+        await mongoose.disconnect()
+    } else {
+        bcrypt.compare(password, user.password, (err, matchPassword) => {
+            if (matchPassword) {
+                const token = jwt.sign({
+                    payload: user.toJSON(),
+                    iat: new Date().getTime()
+                }, keys.tokenSecret, { expiresIn: 3600})
+                res.setHeader('Set-Cookie', `access_token=${token}; HttpOnly; maxAge: 1000*60*60; `)
+                res.status(200).send({
+                    status: true,
+                    message: 'Login Success.',
+                    token: token
+                })
+                mongoose.disconnect()
+            } else {
+                res.status(200).send({
+                    status: false,
+                    message: 'Incorrect password.'
+                })
+                mongoose.disconnect()
+            }
+        })
+    }
+})
