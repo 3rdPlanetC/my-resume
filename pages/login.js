@@ -5,7 +5,7 @@ import { setCookie } from 'nookies'
 import Router from 'next/router'
 import styled from 'styled-components'
 import cookies from 'next-cookies'
-import Cryptr from 'cryptr'
+// import Cryptr from 'cryptr'
 import jwt from 'jsonwebtoken'
 // library
 import { Avatar, Button, TextField, Grid, Typography, Container } from '@material-ui/core'
@@ -50,7 +50,6 @@ const TextFieldStyled = styled(TextField)`
 
 export default props => {
     // props
-    console.log(props)
     const { theme } = props
     // useRef
     const submitForm = useRef(null)
@@ -86,21 +85,21 @@ export default props => {
                 username: username.value,
                 password: password.value,
             })
-            const { status, message, user, token } = res.data
+            const { status, message, token } = res.data
             if (!status) {
                 setResMessage(message)
                 setForm(props.form)
                 submitForm.current.reset()
             } else {
                 setResMessage(message)
-                setCookie(null, 'token', token, {
-                    maxAge: 60*60*24*30,
-                    path: '/'
-                })
+                // set user in store
                 Router.push('/admin')
             }
         } catch (error) {
-            console.log(error)
+            setForm(props.form)
+            submitForm.current.reset()
+            setResMessage("Login fail. your network is down or wrong username password.")
+            console.log(error.status)
         }
     }
 
@@ -170,49 +169,65 @@ export default props => {
 
 export const getServerSideProps = async ctx => {
     const { req, res } = ctx
-    if (cookies(ctx).token) {
-        const cryptr = new Cryptr(keys.tokenSecret)
-        const token = cryptr.decrypt(cookies(ctx).token)
-        try {
-            const userData = jwt.verify(token, keys.tokenSecret)
-            return {
-                props: {
-                    form: {
-                        username: {
-                            error: false,
-                            errorText: "",
-                            value: ""
-                        },
-                        password: {
-                            error: false,
-                            errorText: "",
-                            value: ""
-                        },
-                    },
-                    token: userData
+    // if (cookies(ctx).token) {
+    //     const cryptr = new Cryptr(keys.tokenSecret)
+    //     const token = cryptr.decrypt(cookies(ctx).token)
+    //     try {
+    //         const userData = jwt.verify(token, keys.tokenSecret)
+    //         return {
+    //             props: {
+    //                 form: {
+    //                     username: {
+    //                         error: false,
+    //                         errorText: "",
+    //                         value: ""
+    //                     },
+    //                     password: {
+    //                         error: false,
+    //                         errorText: "",
+    //                         value: ""
+    //                     },
+    //                 },
+    //                 token: userData
+    //             },
+    //         }
+    //     } catch(err) {
+    //         res.status(401).send({
+    //             message: 'Authorization is not valid.'
+    //         })
+    //     }
+    // } else {
+    //     return {
+    //         props: {
+    //             form: {
+    //                 username: {
+    //                     error: false,
+    //                     errorText: "",
+    //                     value: ""
+    //                 },
+    //                 password: {
+    //                     error: false,
+    //                     errorText: "",
+    //                     value: ""
+    //                 },
+    //             },
+    //         },
+    //     }
+    // }
+    return {
+        props: {
+            form: {
+                username: {
+                    error: false,
+                    errorText: "",
+                    value: ""
                 },
-            }
-        } catch(err) {
-            res.status(401).send({
-                message: 'Authorization is not valid.'
-            })
-        }
-    } else {
-        return {
-            props: {
-                form: {
-                    username: {
-                        error: false,
-                        errorText: "",
-                        value: ""
-                    },
-                    password: {
-                        error: false,
-                        errorText: "",
-                        value: ""
-                    },
+                password: {
+                    error: false,
+                    errorText: "",
+                    value: ""
                 },
             },
-        }
+        },
     }
 }

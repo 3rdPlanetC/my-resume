@@ -1,5 +1,6 @@
 // core
-import { useState, Fragment } from 'react'
+import { useState, useEffect } from 'react'
+import { withIdentity } from '../hoc/client'
 // library
 import { CssBaseline } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
@@ -38,7 +39,7 @@ const useTheme = () => {
     return storeTheme
 }
 
-export default ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }) => {
     // useTheme
     const storeTheme = useTheme()
     // useState
@@ -61,6 +62,13 @@ export default ({ Component, pageProps }) => {
         })
     }
 
+    // useEffect
+    useEffect(() => {
+        const jssStyles = document.querySelector('#jss-server-side')
+        if (jssStyles && jssStyles.parentNode)
+          jssStyles.parentNode.removeChild(jssStyles)
+    }, [])
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>
@@ -68,3 +76,5 @@ export default ({ Component, pageProps }) => {
         </ThemeProvider>
     )
 }
+
+export default withIdentity(App)

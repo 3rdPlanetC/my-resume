@@ -1,1 +1,1 @@
-export { default as mongoose } from './mongoose'
+export { default as Database } from './Database'
