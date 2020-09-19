@@ -168,7 +168,6 @@ export default props => {
 }
 
 export const getServerSideProps = async ctx => {
-    const { req, res } = ctx
     // if (cookies(ctx).token) {
     //     const cryptr = new Cryptr(keys.tokenSecret)
     //     const token = cryptr.decrypt(cookies(ctx).token)

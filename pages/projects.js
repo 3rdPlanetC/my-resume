@@ -24,6 +24,7 @@ const Image = props => {
 }
 
 const ProjectBlock = props => {
+    console.log(props)
     // props
     const { allProjects } = props
     return (
@@ -44,7 +45,7 @@ const ProjectBlock = props => {
                     <Box className="box-tools box-child">
                         <ul>
                             {project.tools.map(tool => 
-                                <li className="kanit-regular box-tool" id={`box-desc-${project.id}`}>
+                                <li className="kanit-regular box-tool" id={`box-desc-${project.id}`} key={project.id}>
                                     <ArrowRightIcon />
                                     <span>{tool}</span>
                                 </li>
@@ -88,7 +89,7 @@ export const getStaticProps = async ctx => {
             thumbnail: _.image.source_url,
             title: _.title.rendered,
             tools: _.tags_field,
-            dateCreate: new Date(_.date).toLocaleDateString()
+            dateCreate: new Date(_.date).toLocaleDateString("th-TH", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
         }
     })
     return {

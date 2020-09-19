@@ -5,9 +5,9 @@ import keys from '../config'
 
 export default (req, res) => {
     passport.authenticate('local')(req, res, () => {
-        const { user } = req
+        const { username } = req.body
         const token = jwt.sign({
-            payload: user.toJSON(),
+            payload: username.toJSON(),
             iat: new Date().getTime()
         }, keys.tokenSecret, { expiresIn: 3600 })
         res.setHeader('Set-Cookie', cookie.serialize('access_token', `Bearer ${token}`, {

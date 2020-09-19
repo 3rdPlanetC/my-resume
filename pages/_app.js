@@ -63,10 +63,12 @@ const App = ({ Component, pageProps }) => {
     }
 
     // useEffect
+    
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side')
-        if (jssStyles && jssStyles.parentNode)
-          jssStyles.parentNode.removeChild(jssStyles)
+        if (jssStyles && jssStyles.parentNode) {
+            jssStyles.parentNode.removeChild(jssStyles)
+        }
     }, [])
 
     return (

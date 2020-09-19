@@ -18,7 +18,7 @@ export default props => {
                 randomTheme={randomTheme}
                 theme={theme}
             >
-
+                {/* Home content */}
             </MainLayout>
         </Fragment>
     )

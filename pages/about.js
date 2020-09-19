@@ -10,7 +10,7 @@ export default props => {
         <Fragment>
             <Seo title="E3T Homepage" />
             <MainLayout {...props} className="index">
-                About Page
+                {/* About Page */}
             </MainLayout>
         </Fragment>
     )

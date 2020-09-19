@@ -4,11 +4,12 @@ import { User } from '../models'
 
 export default new LocalStrategy(
     async (username, password, done) => {
-        const user = await User.findOne({username : username})
-        bcrypt.compare(password, user.password, (err, matchPassword) => {
-            if (matchPassword) {
-                return done(null, user)
-            }
-        })
+        const user = await User.findOne({username : username}).exec()
+        if (user.password === password) {
+            console.log("match!")
+            return done(null, user)
+        } else {
+            console.log("not match!")
+        }
     }
 )

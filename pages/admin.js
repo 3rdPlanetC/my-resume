@@ -91,7 +91,7 @@ export default props => {
     )
 }
 
-export const getStaticProps = async ctx => {
+export const getServerSideProps = async ctx => {
     return {
         props: {
             

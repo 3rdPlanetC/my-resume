@@ -9,7 +9,7 @@ export default props => {
     // functions
     const handleClick = ev => {
         ev.preventDefault()
-        randomTheme()
+        setInterval(randomTheme, 1000)
     }
     return (
         <Fragment>

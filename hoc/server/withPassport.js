@@ -6,15 +6,17 @@ import { User } from '../../models'
 
 passport.use(local)
 
-passport.serializeUser((user, done) => {
-    done(null, user.id)
-})
+// passport.serializeUser((user, done) => {
+// 	console.log("serialize", user.id)
+//     done(null, user.id)
+// })
 
-passport.deserializeUser(async (id, done) => {
-    User.findById(id).then(user => {
-        done(null, user)
-    })
-})
+// passport.deserializeUser((id, done) => {
+// 	console.log("deserialize", id)
+//     User.findById(id).then(user => {
+//         done(null, user)
+//     })
+// })
 
 export default server => async (req, res) => {
     cookieSession({
@@ -22,7 +24,8 @@ export default server => async (req, res) => {
 		signed: false,
 		maxAge: 1000*60*60,
 		keys: [keys.cookieKeys]
-    })(req, res, () =>
+	})
+	(req, res, () =>
 		passport.initialize()(req, res, () =>
 			passport.session()(req, res, () =>
 				server(req, res)

@@ -1,4 +1,3 @@
-// import nextConnect from 'next-connect'
 import { withPassport } from '../../hoc/server'
 import { Database } from '../../middlewares'
 import LoginRoute from '../../routes/LoginRoute'
