@@ -9,9 +9,16 @@ const handle = app.getRequestHandler()
 
 const apiPaths = {
     '/api': {
-        target: 'http://localhost:3080', 
+        target: `http://localhost:${process.env.PORT_SERVER || 5000}`, 
         pathRewrite: {
-            '^/api': '/api'
+            '^/api': '/api',
+        },
+        changeOrigin: true
+    },
+    '/static': {
+        target: `http://localhost:${process.env.PORT_SERVER || 5000}`, 
+        pathRewrite: {
+            '^/static': '/static',
         },
         changeOrigin: true
     }
@@ -24,6 +31,7 @@ app.prepare().then(() => {
     
     if (isDevelopment) {
         server.use('/api', createProxyMiddleware(apiPaths['/api']));
+        server.use('/static', createProxyMiddleware(apiPaths['/static']));
     }
 
     server.all('*', (req, res) => {
@@ -34,6 +42,7 @@ app.prepare().then(() => {
         if (err) throw err
         console.log(`> Ready on http://localhost:${port}`)
     })
+
 }).catch(err => {
     console.log('Error:::::', err)
 })

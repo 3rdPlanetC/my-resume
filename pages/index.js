@@ -1,11 +1,12 @@
-// core
-import { Fragment } from 'react'
+import MainLayout from '../components/layout/MainLayout'
+import "../styles/main.scss"
 
-export default props => {
-    // props
+const Home = props => {
     return (
-        <Fragment>
-            homepage
-        </Fragment>
+        <MainLayout>
+            <h1 className="example">Home Content</h1>
+        </MainLayout>
     )
 }
+
+export default Home

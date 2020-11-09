@@ -1,10 +1,16 @@
-module.exports = {
+const withSass = require('@zeit/next-sass')
+const withImages = require('next-images')
+
+module.exports = withImages(withSass({
     cssLoaderOptions: {
         importLoaders: 1,
         localIdentName: "[local]___[hash:base64:5]",
     },
     target: 'server',
     externalResolver: true,
+    plugins: [
+        ["styled-jsx/babel", { "optimizeForSpeed": true }]
+    ],
     webpack: config => {
         config.module.rules.push({
             test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
@@ -26,4 +32,4 @@ module.exports = {
         }
         return config
     },
-}
+}))
