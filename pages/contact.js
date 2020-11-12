@@ -1,12 +1,12 @@
 import { MainLayout } from '../components/layout'
 import "../styles/main.scss"
 
-const Home = props => {
+const Contact = props => {
     return (
         <MainLayout>
-            <h1 className="example">Home Content</h1>
+            <h1 className="example">Contact Content</h1>
         </MainLayout>
     )
 }
 
-export default Home
+export default Contact

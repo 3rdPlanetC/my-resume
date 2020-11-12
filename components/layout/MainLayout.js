@@ -1,30 +1,27 @@
 import clsx from 'clsx'
 import { Grid, Container } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
-import GridLeft from '../ui/GridLeft'
-import GridRight from '../ui/GridRight'
-
-const styles = {
-    root: {
-        paddingTop: "16px"
-    },
-    gridRight: {
-
-    }
-}
+import CreateStyles from '../../utils/CreateStyles'
+import { Sidebar, MainContent } from '../ui'
 
 const MainLayout = props => {
-    const { children, classes } = props
+    // props
+    const { children } = props
+    // create classes
+    const classes = CreateStyles({
+        root: {
+            paddingTop: "16px"
+        }
+    })()
     return (
         <Container fixed className={clsx(classes.root)}>
             <Grid container spacing={2} >
-                <GridLeft />
-                <GridRight className={clsx(classes.gridRight)} >
+                <Sidebar />
+                <MainContent >
                     {children}
-                </GridRight>
+                </MainContent>
             </Grid>
         </Container>
     )
 }
 
-export default withStyles(styles)(MainLayout)
+export default MainLayout

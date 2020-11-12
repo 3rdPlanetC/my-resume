@@ -1,17 +1,20 @@
+import clsx from 'clsx'
 import { Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles({
-    root: {
-        borderRadius: 10,
-    }
-})
+import CreateStyles from '../../utils/CreateStyles'
 
 const CardLayout = props => {
-    const { children } = props
-    const classes = useStyles()
+    // props
+    const { children, className } = props
+    // create classes
+    const classes = CreateStyles({
+        root: {
+            borderRadius: 10,
+            paddingTop: 16,
+            paddingBottom: 16
+        }
+    })()
     return (
-        <Paper elevation={4} className="card-layout" classes={{root: classes.root}}>
+        <Paper elevation={4} className={clsx(classes.root, "card-layout", className)}>
             {children}
         </Paper>
     )

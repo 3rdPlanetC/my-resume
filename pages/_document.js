@@ -45,6 +45,8 @@ class MyDocument extends Document {
 					<meta property="og:title" content="Allied together, our complaints are powerful"/>
 					<meta property="og:description" content="Make your complaint about any company visible to the entire world on WeAlly.org. We can finally look at the problems companies have with their customers, complain on WeAlly and join the responsible citizens"/>
 					<meta property="og:image" content={'https://weally.org/static/images/fb_splash.jpg'}/> */}
+					<link rel="preconnect" href="https://fonts.gstatic.com" />
+					<link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet" />
 					{this.props.styleTags}
 				</Head>
 				<body>

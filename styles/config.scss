@@ -1,0 +1,25 @@
+$background-1 : #1c1c27;
+$background-2 : #28293d;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    &.active {
+        color: #ee6f57;
+    }
+}
+
+.variable-text {
+    color: #e6cd69;
+}
+
+@media (min-width: 960px) {
+    .main-content {
+        max-width: calc(25% - 50px);
+    }
+}
