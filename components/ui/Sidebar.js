@@ -37,12 +37,13 @@ const Sidebar = props => {
         },
         avatarContainer: {
             display: "flex",
-            justifyContent: "center"
+            justifyContent: "center",
+            flexWrap: "wrap"
         },
         avatar: {
             borderRadius: "50%"
         }
-    }, 'md', {
+    }, 'lg', {
         maxWidth: "calc(25% - 50px)",
         flexBasis: "calc(25% - 50px)"
     })()

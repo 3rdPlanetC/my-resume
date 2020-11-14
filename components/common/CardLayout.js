@@ -1,6 +1,7 @@
 import clsx from 'clsx'
-import { Paper } from '@material-ui/core'
+import { Paper, Box } from '@material-ui/core'
 import CreateStyles from '../../utils/CreateStyles'
+import { WindowControlImage } from '../common'
 
 const CardLayout = props => {
     // props
@@ -15,7 +16,10 @@ const CardLayout = props => {
     })()
     return (
         <Paper elevation={4} className={clsx(classes.root, "card-layout", className)}>
-            {children}
+            <WindowControlImage />
+            <Box>
+                {children}
+            </Box>
         </Paper>
     )
 }

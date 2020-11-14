@@ -13,7 +13,7 @@ const MainContent = props => {
             gap: "16px",
             display: "flex"
         }
-    }, 'md', {
+    }, 'lg', {
         maxWidth: "calc(75% + 50px)",
         flexBasis: "calc(75% + 50px)"
     })()

@@ -1,5 +1,5 @@
-$background-1 : #1c1c27;
-$background-2 : #28293d;
+$background-1 : #16161f;
+$background-2 : #1f2033;
 
 * {
     box-sizing: border-box;
@@ -8,18 +8,33 @@ $background-2 : #28293d;
 
 a {
     text-decoration: none;
-    color: white;
+    color: #55b5db;
     &.active {
-        color: #ee6f57;
+        text-decoration: white;
+        .variable-text {
+            color: #ee6f57;
+        }
+        .page-text {
+
+        }
+        .checking-value-text {
+            color: #9fca56;
+        }
+    }
+    .variable-text {
+        color: #e6cd69;
+    }
+    .page-text {
+
+    }
+    .checking-value-text {
+        color: #cd3f45;
     }
 }
 
-.variable-text {
-    color: #e6cd69;
-}
-
-@media (min-width: 960px) {
-    .main-content {
-        max-width: calc(25% - 50px);
+.cursor-image {
+    color: transparent;
+    &.active {
+        color: white;
     }
 }
